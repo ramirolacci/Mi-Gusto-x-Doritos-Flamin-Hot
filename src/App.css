@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #000;
+  overflow-x: hidden;
+}
+
+.flame-text {
+  background: linear-gradient(45deg, #FF4500, #FF6B35, #FFA500, #DC143C);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: flameGradient 3s ease-in-out infinite;
+}
+
+@keyframes flameGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.fire-glow {
+  box-shadow: 0 0 30px rgba(255, 69, 0, 0.5), 0 0 60px rgba(255, 107, 53, 0.3);
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(255, 69, 0, 0.3);
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 20px rgba(255, 69, 0, 0.4); }
+  100% { box-shadow: 0 0 40px rgba(255, 69, 0, 0.8); }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flame-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.flame-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 69, 0, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.gradient-bg {
+  background: radial-gradient(circle at center, rgba(255, 69, 0, 0.1) 0%, rgba(220, 20, 60, 0.05) 50%, transparent 100%);
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .flame-text {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
