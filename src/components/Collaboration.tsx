@@ -27,10 +27,13 @@ const Collaboration: React.FC = () => {
           {/* Mi Gusto */}
           <div className="text-center lg:text-right">
             <div className="mb-8">
-              <div className="inline-block bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl p-8 shadow-2xl hover-lift">
-                <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center mx-auto lg:ml-auto lg:mr-0">
-                  <span className="text-3xl font-black text-orange-600">MG</span>
-                </div>
+              <div className="inline-block hover-lift mx-auto lg:ml-auto lg:mr-0">
+                <img
+                  src="/Logo Mi Gusto 2025.png"
+                  alt="Logo Mi Gusto 2025"
+                  className="h-24 w-auto object-contain"
+                  loading="lazy"
+                />
               </div>
             </div>
             <h3 className="text-3xl font-black text-white mb-4 font-['Bebas_Neue']">MI GUSTO</h3>
@@ -47,10 +50,13 @@ const Collaboration: React.FC = () => {
           {/* Doritos */}
           <div className="text-center lg:text-left">
             <div className="mb-8">
-              <div className="inline-block bg-gradient-to-br from-red-600 to-orange-600 rounded-3xl p-8 shadow-2xl hover-lift">
-                <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center">
-                  <span className="text-2xl font-black text-red-600">🔥</span>
-                </div>
+              <div className="inline-block hover-lift">
+                <img
+                  src="/pngegg.png"
+                  alt="Doritos Flamin' Hot"
+                  className="h-24 w-auto object-contain"
+                  loading="lazy"
+                />
               </div>
             </div>
             <h3 className="text-3xl font-black flame-text mb-4 font-['Bebas_Neue']">DORITOS FLAMIN' HOT</h3>
