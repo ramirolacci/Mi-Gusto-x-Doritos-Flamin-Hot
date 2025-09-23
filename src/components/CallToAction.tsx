@@ -5,14 +5,14 @@ const CallToAction: React.FC = () => {
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-red-950 via-black to-black" />
+      <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-black to-black" />
       
       {/* Animated particles */}
       <div className="absolute inset-0 opacity-20">
         {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-orange-400 rounded-full animate-pulse"
+            className="absolute w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -26,9 +26,9 @@ const CallToAction: React.FC = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
         {/* Main CTA */}
         <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600/20 to-orange-600/20 rounded-full border border-orange-500/30 mb-8">
-            <Flame className="w-5 h-5 text-orange-400 animate-bounce" />
-            <span className="text-orange-300 font-semibold text-sm uppercase tracking-wider">¡Tu Momento Es Ahora!</span>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-fuchsia-600/20 to-purple-600/20 rounded-full border border-fuchsia-500/30 mb-8">
+            <Flame className="w-5 h-5 text-yellow-400 animate-bounce" />
+            <span className="text-fuchsia-300 font-semibold text-sm uppercase tracking-wider">¡Tu Momento Es Ahora!</span>
           </div>
           
           <h2 className="text-5xl md:text-7xl font-black flame-text font-['Bebas_Neue'] mb-8 leading-tight">
@@ -37,14 +37,14 @@ const CallToAction: React.FC = () => {
             REVOLUCIÓN?
           </h2>
           
-          <p className="text-gray-300 text-xl md:text-2xl max-w-4xl mx-auto mb-12 leading-relaxed">
+          <p className="text-purple-200 text-xl md:text-2xl max-w-4xl mx-auto mb-12 leading-relaxed">
             No dejes que otros vivan esta experiencia antes que tú. 
             Sé parte de la historia gastronómica más intensa del año.
           </p>
 
           {/* Primary CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <button className="group px-10 py-5 bg-gradient-to-r from-red-600 to-orange-600 rounded-full text-white font-bold text-xl hover-lift fire-glow transition-all duration-300 hover:from-red-500 hover:to-orange-500 hover:scale-105">
+            <button className="group px-10 py-5 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-xl hover-lift fire-glow transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 hover:scale-105">
               <span className="flex items-center gap-3">
                 <Flame className="w-6 h-6 group-hover:animate-spin" />
                 Quiero Probarlas YA
@@ -52,39 +52,39 @@ const CallToAction: React.FC = () => {
               </span>
             </button>
             
-            <button className="px-10 py-5 border-2 border-orange-500 text-orange-400 rounded-full font-bold text-xl hover:bg-orange-500 hover:text-white transition-all duration-300 flame-border hover:scale-105">
+            <button className="px-10 py-5 border-2 border-yellow-400 text-yellow-400 rounded-full font-bold text-xl hover:bg-yellow-400 hover:text-black transition-all duration-300 flame-border hover:scale-105">
               Encontrar Mi Local
             </button>
           </div>
 
           {/* Secondary Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
-            <div className="bg-gradient-to-br from-red-900/30 to-orange-900/30 rounded-2xl p-6 border border-red-500/20 hover-lift">
+            <div className="bg-gradient-to-br from-purple-900/30 to-fuchsia-900/30 rounded-2xl p-6 border border-fuchsia-500/20 hover-lift">
               <h4 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-                <Mail className="w-5 h-5 text-orange-400" />
+                <Mail className="w-5 h-5 text-yellow-400" />
                 Newsletter Exclusivo
               </h4>
-              <p className="text-gray-400 mb-4 text-sm">
+              <p className="text-purple-300 mb-4 text-sm">
                 Recibe ofertas especiales y noticias sobre próximos lanzamientos
               </p>
               <div className="flex gap-2">
                 <input 
                   type="email" 
                   placeholder="tu@email.com" 
-                  className="flex-1 px-4 py-2 bg-black/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-orange-500 focus:outline-none"
+                  className="flex-1 px-4 py-2 bg-black/50 border border-purple-600 rounded-lg text-white placeholder-purple-400 focus:border-fuchsia-500 focus:outline-none"
                 />
-                <button className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition-colors">
+                <button className="px-4 py-2 bg-fuchsia-600 text-white rounded-lg hover:bg-fuchsia-500 transition-colors">
                   Suscribir
                 </button>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-orange-900/30 to-red-900/30 rounded-2xl p-6 border border-orange-500/20 hover-lift">
+            <div className="bg-gradient-to-br from-fuchsia-900/30 to-purple-900/30 rounded-2xl p-6 border border-purple-500/20 hover-lift">
               <h4 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-                <Instagram className="w-5 h-5 text-orange-400" />
+                <Instagram className="w-5 h-5 text-yellow-400" />
                 Síguenos en Redes
               </h4>
-              <p className="text-gray-400 mb-4 text-sm">
+              <p className="text-purple-300 mb-4 text-sm">
                 Únete a la comunidad más ardiente de foodies
               </p>
               <div className="flex gap-3">
@@ -95,7 +95,7 @@ const CallToAction: React.FC = () => {
                 ].map((social, index) => (
                   <button
                     key={index}
-                    className="w-10 h-10 bg-gradient-to-br from-red-600 to-orange-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                    className="w-10 h-10 bg-gradient-to-br from-fuchsia-600 to-purple-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
                     title={social.label}
                   >
                     <social.icon className="w-5 h-5 text-white" />
@@ -110,16 +110,16 @@ const CallToAction: React.FC = () => {
         <div className="border-t border-gray-800 pt-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-xl flex items-center justify-center">
                 <Flame className="w-6 h-6 text-white" />
               </div>
               <div className="text-left">
                 <div className="text-white font-bold text-lg">Mi Gusto × Doritos</div>
-                <div className="text-gray-400 text-sm">Flamin' Hot Experience</div>
+                <div className="text-purple-400 text-sm">Flamin' Hot Experience</div>
               </div>
             </div>
             
-            <div className="text-gray-400 text-sm">
+            <div className="text-purple-400 text-sm">
               <p>© 2025 Mi Gusto. Todos los derechos reservados.</p>
               <p className="text-xs mt-1">Doritos es una marca registrada de PepsiCo.</p>
             </div>
@@ -127,7 +127,7 @@ const CallToAction: React.FC = () => {
         </div>
 
         {/* Final Flame Effect */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-32 bg-gradient-to-t from-red-600/20 to-transparent rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-32 bg-gradient-to-t from-fuchsia-600/20 to-transparent rounded-full blur-3xl animate-pulse" />
       </div>
     </section>
   );
