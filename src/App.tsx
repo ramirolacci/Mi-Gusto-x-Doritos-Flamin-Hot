@@ -4,16 +4,20 @@ import ProductShowcase from './components/ProductShowcase';
 import Collaboration from './components/Collaboration';
 import LaunchInfo from './components/LaunchInfo';
 import CallToAction from './components/CallToAction';
+import Navbar from './components/Navbar';
 import './App.css';
 
 function App() {
   return (
     <div className="min-h-screen bg-black">
+      <Navbar />
+      <div className="pt-16">
       <Hero />
       <ProductShowcase />
       <Collaboration />
       <LaunchInfo />
       <CallToAction />
+      </div>
     </div>
   );
 }
