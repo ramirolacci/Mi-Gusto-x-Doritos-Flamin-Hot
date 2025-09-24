@@ -2,9 +2,12 @@ import React, { useEffect, useRef } from 'react';
 
 type FlameCanvasProps = {
   className?: string;
+  colorAlpha?: number;   // Multiplicador de opacidad del color (0-1)
+  density?: number;      // Multiplicador de densidad de partículas
+  shadowBlur?: number;   // Intensidad del brillo
 };
 
-const FlameCanvas: React.FC<FlameCanvasProps> = ({ className }) => {
+const FlameCanvas: React.FC<FlameCanvasProps> = ({ className, colorAlpha = 0.7, density = 1, shadowBlur = 15 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -65,11 +68,12 @@ const FlameCanvas: React.FC<FlameCanvasProps> = ({ className }) => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = 15;
+        ctx.shadowBlur = shadowBlur;
         // Extraer el valor de hue desde la cadena hsl(hue, ...)
         const hueStr = this.color.match(/hsl\((\d+(?:\.\d+)?)\,/);
         const hue = hueStr ? parseFloat(hueStr[1]) : 20;
-        ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${opacity * 0.7})`;
+        const alpha = Math.max(0, Math.min(1, opacity * colorAlpha));
+        ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${alpha})`;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -87,7 +91,7 @@ const FlameCanvas: React.FC<FlameCanvasProps> = ({ className }) => {
       // Escala simple de densidad basada en el área (referencia 1920x1080)
       const area = canvas.width * canvas.height;
       const baseArea = 1920 * 1080;
-      const numberOfParticles = Math.max(80, Math.floor(300 * (area / baseArea)));
+      const numberOfParticles = Math.max(80, Math.floor(300 * density * (area / baseArea)));
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new FlameParticle());
       }
@@ -114,7 +118,7 @@ const FlameCanvas: React.FC<FlameCanvasProps> = ({ className }) => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [colorAlpha, density, shadowBlur]);
 
   return (
     <div ref={containerRef} className={className}>

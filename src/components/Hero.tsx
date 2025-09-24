@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background (reemplazado por FlameCanvas) */}
       <div className="absolute inset-0">
-        <FlameCanvas className="absolute inset-0" />
+        <FlameCanvas className="absolute inset-0" colorAlpha={1} density={1.6} shadowBlur={24} />
       </div>
       {/* Overlay violeta sobre el efecto (intenso, sin mezcla) */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-black/40 via-purple-900/85 to-fuchsia-900/85" />
