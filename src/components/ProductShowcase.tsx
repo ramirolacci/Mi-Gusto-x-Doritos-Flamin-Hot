@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { Star, Flame, Zap, Sparkles, Award } from 'lucide-react';
+import { Star, Flame, Sparkles, Award } from 'lucide-react';
 import SteamOverlay from './SteamOverlay';
+import FlameCanvas from './FlameCanvas';
 
 const ProductShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -30,11 +31,13 @@ const ProductShowcase: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Main Product 3D */}
           <div className="lg:col-span-2">
-            <div className="relative group hover-lift">
-              <div className="epic-3d-bg rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <div className="relative">
+              <div className="relative rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden bg-black">
+                {/* FlameCanvas de toda la card (único, desde el borde inferior) */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                  <FlameCanvas className="absolute inset-0" density={1.2} colorAlpha={0.9} shadowBlur={18} />
+                </div>
                 <div className="relative z-10 h-[420px] md:h-96 flex items-center justify-center">
-                  <div className="epic-3d-ring" />
                   <div className="w-full h-full max-w-3xl mx-auto">
                     {/* Vapor detras */}
                     <div className="pointer-events-none absolute inset-0 z-0">
@@ -65,7 +68,7 @@ const ProductShowcase: React.FC = () => {
           </div>
 
           {/* Features Cards */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:mt-8 xl:mt-12">
             <div className="feature-card-pro hover-lift">
               <div className="flex items-start gap-4">
                 <div className="feature-icon-pro flex-shrink-0">
