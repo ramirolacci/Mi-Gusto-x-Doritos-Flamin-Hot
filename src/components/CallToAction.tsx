@@ -1,27 +1,14 @@
 import React from 'react';
+import FlameCanvas from './FlameCanvas';
 import { Flame, Instagram, Twitter, Facebook, Mail, ArrowRight } from 'lucide-react';
 
 const CallToAction: React.FC = () => {
   return (
     <section className="py-20 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-black to-black" />
-      
-      {/* Animated particles */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${1 + Math.random()}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Background con efecto de llamas */}
+      <FlameCanvas className="absolute inset-0" />
+      {/* Overlay violeta sobre el efecto */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-purple-950/70 via-black/40 to-black/10" />
       
       <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
         {/* Main CTA */}
@@ -126,8 +113,7 @@ const CallToAction: React.FC = () => {
           </div>
         </div>
 
-        {/* Final Flame Effect */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-32 bg-gradient-to-t from-fuchsia-600/20 to-transparent rounded-full blur-3xl animate-pulse" />
+        {/* Efecto final sutil (opcional): mantenemos el canvas de fondo */}
       </div>
     </section>
   );
