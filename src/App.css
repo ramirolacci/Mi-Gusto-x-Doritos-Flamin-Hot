@@ -112,3 +112,15 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Ocultar barras de scroll (manteniendo el scroll) */
+html, body {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
