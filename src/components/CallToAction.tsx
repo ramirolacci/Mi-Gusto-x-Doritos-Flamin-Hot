@@ -7,8 +7,8 @@ const CallToAction: React.FC = () => {
     <section className="py-20 relative overflow-hidden">
       {/* Background con efecto de llamas */}
       <FlameCanvas className="absolute inset-0" />
-      {/* Overlay violeta sobre el efecto */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-purple-950/70 via-black/40 to-black/10" />
+      {/* Overlay violeta sobre el efecto (intenso, sin mezcla) */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-purple-950/85 via-black/40 to-black/20" />
       
       <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
         {/* Main CTA */}

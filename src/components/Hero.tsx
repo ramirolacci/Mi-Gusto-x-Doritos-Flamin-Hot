@@ -15,8 +15,8 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0">
         <FlameCanvas className="absolute inset-0" />
       </div>
-      {/* Overlay violeta sobre el efecto */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-black via-purple-900/60 to-fuchsia-900/60" />
+      {/* Overlay violeta sobre el efecto (intenso, sin mezcla) */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-black/40 via-purple-900/85 to-fuchsia-900/85" />
 
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
