@@ -4,8 +4,7 @@ import { Users, Heart, Trophy } from 'lucide-react';
 const Collaboration: React.FC = () => {
   return (
     <section className="py-20 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-orange-950/30 to-black" />
+      {/* Background removido para evitar cuadro negro detrás de las imágenes */}
       
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Section Header */}
@@ -27,16 +26,15 @@ const Collaboration: React.FC = () => {
           {/* Mi Gusto */}
           <div className="text-center lg:text-right">
             <div className="mb-8">
-              <div className="inline-block hover-lift mx-auto lg:ml-auto lg:mr-0">
+              <div className="inline-block hover-lift no-shadow mx-auto lg:ml-auto lg:mr-0">
                 <img
                   src="/Logo Mi Gusto 2025.png"
                   alt="Logo Mi Gusto 2025"
-                  className="h-24 w-auto object-contain"
+                  className="h-28 md:h-32 w-auto object-contain"
                   loading="lazy"
                 />
               </div>
             </div>
-            <h3 className="text-3xl font-black text-white mb-4 font-['Bebas_Neue']">MI GUSTO</h3>
             <p className="text-gray-400 text-lg leading-relaxed max-w-md mx-auto lg:ml-auto lg:mr-0">
               <strong className="text-orange-400">25 años</strong> de tradición argentina en empanadas artesanales. 
               Sabor auténtico, masa perfecta y el cariño de siempre en cada mordida.
@@ -50,16 +48,15 @@ const Collaboration: React.FC = () => {
           {/* Doritos */}
           <div className="text-center lg:text-left">
             <div className="mb-8">
-              <div className="inline-block hover-lift">
+              <div className="inline-block hover-lift no-shadow">
                 <img
                   src="/pngegg.png"
                   alt="Doritos Flamin' Hot"
-                  className="h-24 w-auto object-contain"
+                  className="h-28 md:h-32 w-auto object-contain"
                   loading="lazy"
                 />
               </div>
             </div>
-            <h3 className="text-3xl font-black flame-text mb-4 font-['Bebas_Neue']">DORITOS FLAMIN' HOT</h3>
             <p className="text-gray-400 text-lg leading-relaxed max-w-md mx-auto lg:mr-auto lg:ml-0">
               La marca de snacks más <strong className="text-red-400">audaz del mundo</strong>. 
               Sabor intenso, picante extremo y la actitud que define una generación.

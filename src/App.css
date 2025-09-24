@@ -39,6 +39,11 @@ body {
   box-shadow: 0 20px 40px rgba(255, 0, 128, 0.4);
 }
 
+/* Variante para desactivar la sombra en hover donde no se desea */
+.hover-lift.no-shadow:hover {
+  box-shadow: none;
+}
+
 .pulse-glow {
   animation: pulseGlow 2s ease-in-out infinite alternate;
 }
