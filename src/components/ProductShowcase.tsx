@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { Star, Flame, Zap } from 'lucide-react';
+import { Star, Flame, Zap, Sparkles, Award } from 'lucide-react';
+import SteamOverlay from './SteamOverlay';
 
 const ProductShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -27,20 +28,37 @@ const ProductShowcase: React.FC = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          {/* Main Product Image */}
+          {/* Main Product 3D */}
           <div className="lg:col-span-2">
             <div className="relative group hover-lift">
-              <div className="bg-gradient-to-br from-purple-900/30 to-fuchsia-900/30 rounded-3xl p-8 border border-fuchsia-500/20 overflow-hidden">
+              <div className="epic-3d-bg rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="relative z-10 h-80 lg:h-96 flex items-center justify-center">
-                  <div className="w-72 h-72 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-full opacity-20 blur-3xl absolute" />
-                  <div className="text-center">
-                    <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-fuchsia-400 to-purple-500 rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                      <Flame className="w-16 h-16 text-white" />
+                <div className="relative z-10 h-[420px] md:h-96 flex items-center justify-center">
+                  <div className="epic-3d-ring" />
+                  <div className="w-full h-full max-w-3xl mx-auto">
+                    {/* Vapor detras */}
+                    <div className="pointer-events-none absolute inset-0 z-0">
+                      <SteamOverlay intensity={0.85} className="absolute inset-0" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Empanada Premium</h3>
-                    <p className="text-fuchsia-300">Con topping Doritos Flamin' Hot</p>
+                    <model-viewer
+                      src="/Doritos-3D.glb"
+                      alt="Empanada Premium con Doritos Flamin' Hot"
+                      camera-controls
+                      auto-rotate
+                      shadow-intensity="0.8"
+                      exposure="1.0"
+                      interaction-prompt="none"
+                      disable-zoom
+                      camera-orbit="15deg 70deg 85%"
+                      field-of-view="23deg"
+                      tone-mapping="neutral"
+                      style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent', position: 'relative', zIndex: 1 }}
+                    />
                   </div>
+                </div>
+                <div className="relative z-10 text-center mt-4 md:mt-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Empanada Premium</h3>
+                  <p className="text-fuchsia-300">Con topping Doritos Flamin' Hot</p>
                 </div>
               </div>
             </div>
@@ -48,9 +66,9 @@ const ProductShowcase: React.FC = () => {
 
           {/* Features Cards */}
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-purple-900/40 to-fuchsia-900/40 rounded-2xl p-6 border border-fuchsia-500/20 hover-lift">
+            <div className="feature-card-pro hover-lift">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-fuchsia-500 to-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="feature-icon-pro flex-shrink-0">
                   <Flame className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -60,10 +78,10 @@ const ProductShowcase: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-fuchsia-900/40 to-purple-900/40 rounded-2xl p-6 border border-purple-500/20 hover-lift">
+            <div className="feature-card-pro hover-lift">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-fuchsia-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-6 h-6 text-white" />
+                <div className="feature-icon-pro flex-shrink-0">
+                  <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg mb-2">Innovación Total</h4>
@@ -72,10 +90,10 @@ const ProductShowcase: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-900/40 to-fuchsia-900/40 rounded-2xl p-6 border border-fuchsia-500/20 hover-lift">
+            <div className="feature-card-pro hover-lift">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-fuchsia-500 to-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Star className="w-6 h-6 text-white" />
+                <div className="feature-icon-pro flex-shrink-0">
+                  <Award className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg mb-2">Calidad Premium</h4>
@@ -102,7 +120,14 @@ const ProductShowcase: React.FC = () => {
             {
               title: "Topping Crujiente",
               description: "Doritos Flamin' Hot molidos incorporados para un contraste de texturas único",
-              icon: "⚡"
+              icon: (
+                <img
+                  src="/dorito.png"
+                  alt="Dorito"
+                  className="w-8 h-8 inline-block"
+                  loading="lazy"
+                />
+              )
             }
           ].map((item, index) => (
             <div key={index} className="text-center group">

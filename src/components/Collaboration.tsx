@@ -26,11 +26,11 @@ const Collaboration: React.FC = () => {
           {/* Mi Gusto */}
           <div className="text-center lg:text-right">
             <div className="mb-8">
-              <div className="inline-block hover-lift no-shadow mx-auto lg:ml-auto lg:mr-0">
+              <div className="inline-block hover-lift no-shadow mx-auto lg:ml-auto lg:mr-0 logo-shake logo-glow">
                 <img
                   src="/Logo Mi Gusto 2025.png"
                   alt="Logo Mi Gusto 2025"
-                  className="h-28 md:h-32 w-auto object-contain"
+                  className="h-28 md:h-32 w-auto object-contain logo-drift"
                   loading="lazy"
                 />
               </div>
@@ -48,11 +48,11 @@ const Collaboration: React.FC = () => {
           {/* Doritos */}
           <div className="text-center lg:text-left">
             <div className="mb-8">
-              <div className="inline-block hover-lift no-shadow">
+              <div className="inline-block hover-lift no-shadow logo-shake logo-glow">
                 <img
                   src="/pngegg.png"
                   alt="Doritos Flamin' Hot"
-                  className="h-28 md:h-32 w-auto object-contain"
+                  className="h-28 md:h-32 w-auto object-contain logo-drift-2"
                   loading="lazy"
                 />
               </div>

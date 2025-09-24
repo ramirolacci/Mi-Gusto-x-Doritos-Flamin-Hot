@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
           {/* Subtitle */}
           <div className="mb-8">
             <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
-              <span className="flame-text">FLAMIN' HOT</span> EMPANADAS
+              EMPANADAS <span className="flame-text flame-fire">FLAMIN' HOT</span>
             </h2>
             <p className="text-purple-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               La fusión perfecta entre el sabor auténtico argentino y la intensidad ardiente de Doritos Flamin' Hot

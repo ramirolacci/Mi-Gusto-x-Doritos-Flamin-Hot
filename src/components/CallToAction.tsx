@@ -31,17 +31,27 @@ const CallToAction: React.FC = () => {
 
           {/* Primary CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <button className="group px-10 py-5 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-xl hover-lift fire-glow transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 hover:scale-105">
+            <a
+              href="https://pedir.migusto.com.ar/index.php"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-10 py-5 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-xl hover-lift fire-glow transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 hover:scale-105"
+            >
               <span className="flex items-center gap-3">
                 <Flame className="w-6 h-6 group-hover:animate-spin" />
                 Quiero Probarlas YA
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
-            </button>
-            
-            <button className="px-10 py-5 border-2 border-yellow-400 text-yellow-400 rounded-full font-bold text-xl hover:bg-yellow-400 hover:text-black transition-all duration-300 flame-border hover:scale-105">
+            </a>
+
+            <a
+              href="https://pedir.migusto.com.ar/index.php"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-5 border-2 border-yellow-400 text-yellow-400 rounded-full font-bold text-xl hover:bg-yellow-400 hover:text-black transition-all duration-300 flame-border hover:scale-105"
+            >
               Encontrar Mi Local
-            </button>
+            </a>
           </div>
 
           {/* Secondary Actions */}
@@ -97,12 +107,23 @@ const CallToAction: React.FC = () => {
         <div className="border-t border-gray-800 pt-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-xl flex items-center justify-center">
-                <Flame className="w-6 h-6 text-white" />
-              </div>
               <div className="text-left">
-                <div className="text-white font-bold text-lg">Mi Gusto × Doritos</div>
-                <div className="text-purple-400 text-sm">Flamin' Hot Experience</div>
+                <div className="flex items-center gap-2">
+                  <img
+                    src="/Logo Mi Gusto 2025.png"
+                    alt="Mi Gusto"
+                    className="h-8 md:h-10 w-auto object-contain"
+                    loading="lazy"
+                  />
+                  <span className="text-white font-bold text-lg">×</span>
+                  <img
+                    src="/pngegg.png"
+                    alt="Doritos"
+                    className="h-8 md:h-10 w-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="text-sm flame-text-inline">Flamin' Hot Experience</div>
               </div>
             </div>
             

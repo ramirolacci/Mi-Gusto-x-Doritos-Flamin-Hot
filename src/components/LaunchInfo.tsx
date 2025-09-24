@@ -52,8 +52,6 @@ const LaunchInfo: React.FC = () => {
 
         {/* Countdown */}
         <div className="bg-gradient-to-br from-purple-900/40 to-fuchsia-900/40 rounded-3xl p-8 lg:p-12 border border-fuchsia-500/20 mb-16">
-          <h3 className="text-center text-2xl font-bold text-white mb-8">Contador Oficial</h3>
-          
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { value: timeLeft.days, label: 'DÍAS' },
