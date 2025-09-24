@@ -47,7 +47,7 @@ const Hero: React.FC = () => {
 
           {/* CTA Button */}
           <div className="flex justify-center items-center">
-            <button className="group px-8 py-4 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-lg fire-glow transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 transform hover:scale-105">
+            <button className="group px-8 py-4 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-lg transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 transform hover:scale-105">
               <span className="flex items-center gap-2">
                 <Flame className="w-5 h-5 group-hover:animate-bounce" />
                 Descubrir Ahora
