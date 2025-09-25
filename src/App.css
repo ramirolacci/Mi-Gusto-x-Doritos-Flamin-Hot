@@ -309,3 +309,33 @@ body::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
+/* Marquee diagonal decorativo */
+.diagonal-marquee {
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.diagonal-marquee .marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-loop var(--marquee-duration, 18s) linear infinite;
+}
+
+.diagonal-marquee .marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+.diagonal-marquee .marquee-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0.75rem 2rem;
+}
+
+@keyframes marquee-loop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--marquee-shift, 50%))); }
+}

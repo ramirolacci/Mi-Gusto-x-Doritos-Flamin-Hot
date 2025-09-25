@@ -55,7 +55,7 @@ const CallToAction: React.FC = () => {
           </div>
 
           {/* Secondary Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16">
+          <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto mb-16">
             <div className="bg-gradient-to-br from-purple-900/30 to-fuchsia-900/30 rounded-2xl p-6 border border-fuchsia-500/20 hover-lift">
               <h4 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
                 <Mail className="w-5 h-5 text-yellow-400" />
@@ -75,38 +75,13 @@ const CallToAction: React.FC = () => {
                 </button>
               </div>
             </div>
-
-            <div className="bg-gradient-to-br from-fuchsia-900/30 to-purple-900/30 rounded-2xl p-6 border border-purple-500/20 hover-lift">
-              <h4 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-                <Instagram className="w-5 h-5 text-yellow-400" />
-                Síguenos en Redes
-              </h4>
-              <p className="text-purple-300 mb-4 text-sm">
-                Únete a la comunidad más ardiente de foodies
-              </p>
-              <div className="flex gap-3">
-                {[
-                  { icon: Instagram, label: 'Instagram' },
-                  { icon: Twitter, label: 'Twitter' },
-                  { icon: Facebook, label: 'Facebook' }
-                ].map((social, index) => (
-                  <button
-                    key={index}
-                    className="w-10 h-10 bg-gradient-to-br from-fuchsia-600 to-purple-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
-                    title={social.label}
-                  >
-                    <social.icon className="w-5 h-5 text-white" />
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="border-t border-gray-800 pt-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6">
+            <div className="flex items-center gap-4 justify-self-start">
               <div className="text-left">
                 <div className="flex items-center gap-2">
                   <img
@@ -127,9 +102,33 @@ const CallToAction: React.FC = () => {
               </div>
             </div>
             
-            <div className="text-purple-400 text-sm">
+            <div className="text-purple-400 text-sm text-center justify-self-center">
               <p>© 2025 Mi Gusto. Todos los derechos reservados.</p>
               <p className="text-xs mt-1">Doritos es una marca registrada de PepsiCo.</p>
+            </div>
+
+            {/* Redes en el lado derecho del footer */}
+            <div className="justify-self-end text-right">
+              <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2 justify-end md:justify-end">
+                <Instagram className="w-4 h-4 text-yellow-400" />
+                Síguenos en Redes
+              </h4>
+              <div className="flex gap-3 justify-end">
+                {[
+                  { icon: Instagram, label: 'Instagram' },
+                  { icon: Twitter, label: 'Twitter' },
+                  { icon: Facebook, label: 'Facebook' }
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href="#"
+                    className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-fuchsia-600 to-purple-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                    title={social.label}
+                  >
+                    <social.icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -57,6 +57,44 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
+      {/* Marquees diagonales desde esquinas opuestas */}
+      {/* Cinta 1: de esquina inferior izquierda a superior derecha */}
+      <div className="pointer-events-none absolute -left-12 md:-left-24 bottom-28 rotate-[-14deg] w-[180vw] z-[5]">
+        <div className="diagonal-marquee" style={{ ['--marquee-duration' as any]: '14s', ['--marquee-shift' as any]: '50%' }}>
+          <div className="marquee-track">
+            {/* Duplicación para loop infinito */}
+            <div className="marquee-content border-2 border-white bg-black/80">
+              <span className="text-white text-lg md:text-2xl tracking-[0.25em] font-extrabold">
+                EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD •
+              </span>
+            </div>
+            <div className="marquee-content border-2 border-white bg-black/80">
+              <span className="text-white text-lg md:text-2xl tracking-[0.25em] font-extrabold">
+                EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD •
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Cinta 2: de esquina superior derecha a inferior izquierda (dirección opuesta) */}
+      <div className="pointer-events-none absolute right-0 top-0 rotate-[14deg] w-[180vw] z-[4]">
+        <div className="diagonal-marquee" style={{ ['--marquee-duration' as any]: '16s', ['--marquee-shift' as any]: '50%' }}>
+          <div className="marquee-track reverse">
+            <div className="marquee-content border-2 border-white bg-black/80">
+              <span className="text-white text-lg md:text-2xl tracking-[0.25em] font-extrabold">
+                EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD •
+              </span>
+            </div>
+            <div className="marquee-content border-2 border-white bg-black/80">
+              <span className="text-white text-lg md:text-2xl tracking-[0.25em] font-extrabold">
+                EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD • EXPERIENCIA DE VERDAD •
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Floating Product Mockup */}
       <div className="absolute right-10 top-1/2 transform -translate-y-1/2 hidden lg:block">
         <div className="floating">
