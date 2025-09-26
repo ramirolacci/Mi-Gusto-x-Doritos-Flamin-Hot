@@ -322,6 +322,7 @@ body::-webkit-scrollbar {
   width: max-content;
   will-change: transform;
   animation: marquee-loop var(--marquee-duration, 18s) linear infinite;
+  transform: translateZ(0);
 }
 
 .diagonal-marquee .marquee-track.reverse {
