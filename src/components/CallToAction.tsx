@@ -45,7 +45,7 @@ const CallToAction: React.FC = () => {
               {/* Redes en el lado derecho del footer */}
               <div className="justify-self-end text-right">
                 <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2 justify-end md:justify-end">
-                  <Instagram className="w-4 h-4 text-yellow-400" />
+                  <Instagram className="w-5 h-5 md:w-6 md:h-6" style={{ stroke: 'url(#flame-stroke)', fill: 'none', strokeWidth: 2 }} />
                   Síguenos en Redes
                 </h4>
                 <div className="flex gap-3 justify-end">
@@ -57,10 +57,10 @@ const CallToAction: React.FC = () => {
                     <a
                       key={index}
                       href="#"
-                      className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-fuchsia-600 to-purple-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                      className="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 text-white hover:text-fuchsia-400"
                       title={social.label}
                     >
-                      <social.icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                      <social.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                     </a>
                   ))}
                 </div>
