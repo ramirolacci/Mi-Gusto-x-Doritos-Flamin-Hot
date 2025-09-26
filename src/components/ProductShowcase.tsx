@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import SteamOverlay from './SteamOverlay';
 import FlameCanvas from './FlameCanvas';
+import { Bell } from 'lucide-react';
 
 const ProductShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -12,6 +13,9 @@ const ProductShowcase: React.FC = () => {
     seconds: 0
   });
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [postArrivalProgress, setPostArrivalProgress] = useState(0); // progreso extra luego de que la empanada llega al contador
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
+  const [notificationScheduled, setNotificationScheduled] = useState(false);
 
   useEffect(() => {
     const launchDate = new Date('2025-10-16T00:00:00');
@@ -25,10 +29,29 @@ const ProductShowcase: React.FC = () => {
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000)
         });
+      } else if (distance <= 0 && notificationPermission === 'granted' && !notificationScheduled) {
+        // Cuando el contador llega a 0, enviar notificación con vibración
+        if ('Notification' in window) {
+          // Vibración en móviles si está disponible
+          if ('vibrate' in navigator) {
+            navigator.vibrate([200, 100, 200, 100, 200]); // Patrón de vibración épico
+          }
+          
+          new Notification('¡La empanada ya está aquí! 🔥', {
+            body: 'Mi Gusto × Doritos Flamin\' Hot ya está disponible. ¡No te la pierdas!',
+            icon: '/Logo Mi Gusto 2025.png',
+            badge: '/dorito.png',
+            tag: 'empanada-launch',
+            requireInteraction: true,
+            silent: false,
+            vibrate: [200, 100, 200, 100, 200] // Vibración adicional en la notificación
+          });
+          setNotificationScheduled(true);
+        }
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [notificationPermission, notificationScheduled]);
 
   useEffect(() => {
     const update = () => {
@@ -41,6 +64,11 @@ const ProductShowcase: React.FC = () => {
       const raw = 1 - (rect.top - end) / (start - end);
       const clamped = Math.max(0, Math.min(1, raw));
       setScrollProgress(clamped);
+
+      // progreso adicional una vez que rect.top pasó por debajo de "end" (empanada ya llegó)
+      const overshoot = (end - rect.top) / (vh * 0.35); // 0→1 en ~35% del viewport adicional
+      const overshootClamped = Math.max(0, Math.min(1, overshoot));
+      setPostArrivalProgress(overshootClamped);
     };
     const onScroll = () => requestAnimationFrame(update);
     update();
@@ -63,6 +91,101 @@ const ProductShowcase: React.FC = () => {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
+        {/* Empanada Revolucionaria: mover debajo del video (al inicio de esta sección) */}
+        <div className="text-center mb-14 md:mb-16">
+          <h2 className="text-5xl md:text-6xl font-black flame-text font-['Bebas_Neue'] mb-6">
+            EMPANADA REVOLUCIONARIA
+          </h2>
+          <p className="text-purple-200 text-xl max-w-3xl mx-auto">
+            Cada mordida es una explosión de sabor que combina la tradición argentina con la intensidad única de Doritos Flamin' Hot
+          </p>
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center mb-20">
+          {/* Main Product 3D */}
+          <div className="lg:col-span-2">
+            <div className="relative">
+              <div className="relative rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden bg-black">
+                {/* FlameCanvas de toda la card (único, desde el borde inferior) */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                  <FlameCanvas className="absolute inset-0" density={1.2} colorAlpha={0.9} shadowBlur={18} />
+                </div>
+                <div className="relative z-10 h-[520px] md:h-[560px] lg:h-[600px] flex items-center justify-center">
+                  <div className="w-full h-full max-w-4xl mx-auto">
+                    {/* Vapor detras */}
+                    <div className="pointer-events-none absolute inset-0 z-0">
+                      <SteamOverlay intensity={0.85} className="absolute inset-0" />
+                    </div>
+                    <model-viewer
+                      src="/Doritos-3D.glb"
+                      alt="Empanada Premium con Doritos Flamin' Hot"
+                      camera-controls
+                      auto-rotate
+                      shadow-intensity="0.8"
+                      exposure="1.0"
+                      interaction-prompt="none"
+                      disable-zoom
+                      camera-orbit="90deg 75deg 78%"
+                      field-of-view="23deg"
+                      tone-mapping="neutral"
+                      style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent', position: 'relative', zIndex: 1 }}
+                    />
+                  </div>
+                </div>
+                <div className="relative z-10 text-center mt-4 md:mt-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Empanada Premium</h3>
+                  <p className="text-fuchsia-300">Con topping Doritos Flamin' Hot</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Detalles del producto a la derecha del 3D */}
+          <div className="features-epic space-y-6 lg:mt-0 lg:pl-12 lg:border-l lg:border-fuchsia-500/20 lg:self-stretch lg:flex lg:flex-col lg:justify-center">
+            {[
+              {
+                title: "Masa Artesanal",
+                description: "Elaborada con la receta tradicional de Mi Gusto, perfecta para contener toda la intensidad",
+                icon: "🥟"
+              },
+              {
+                title: "Relleno Intenso",
+                description: "Carne premium sazonada con especias que complementan el Flamin' Hot",
+                icon: "🔥"
+              },
+              {
+                title: "Topping Crujiente",
+                description: "Doritos Flamin' Hot molidos incorporados para un contraste de texturas único",
+                icon: (
+                  <img
+                    src="/dorito.png"
+                    alt="Dorito"
+                    className="w-12 h-12 md:w-14 md:h-14 inline-block"
+                    loading="lazy"
+                  />
+                )
+              }
+            ].map((item, index) => (
+              <div key={index} className="feature-card-pro">
+                <div className="flex items-start gap-4">
+                  <div className="feature-icon-pro">
+                    {typeof item.icon === 'string' ? (
+                      <span className="text-3xl md:text-4xl">{item.icon}</span>
+                    ) : (
+                      item.icon
+                    )}
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-lg md:text-xl mb-1 leading-tight tracking-wide">{item.title}</h4>
+                    <p className="text-purple-200 leading-relaxed text-sm md:text-base max-w-sm">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Section Header (badge removido) */}
         <div className="text-center mb-14 md:mb-16">
           <div ref={epicRef} className="relative inline-block">
@@ -80,10 +203,32 @@ const ProductShowcase: React.FC = () => {
               }}
               loading="lazy"
             />
+            {/* Doritos Tubito Dinamita detrás de la empanada izquierda */}
+            {(() => {
+              // Revelar solo después de que la empanada llegue al contador
+              // Al inicio (reveal=0) quedan exactamente DETRÁS de la empanada y no se ven
+              const reveal = Math.max(0, Math.min(1, (postArrivalProgress - 0.05) / 0.95));
+              const empanadaX = -52 + 40 * scrollProgress; // posición de la empanada
+              const tubitosX = empanadaX - (6 * Math.max(0, reveal)); // desplazamiento lateral levemente mayor
+              const tubitosY = -50 - 2 * Math.max(0, reveal); // ligera subida
+              return (
+                <img
+                  src="/TubitoDinamita.png"
+                  alt="Doritos Dinamita"
+                  className="pointer-events-none hidden md:block absolute -left-6 md:-left-16 top-1/2 w-48 md:w-56 lg:w-64 will-change-transform z-[5]"
+                  style={{
+                    transform: `translate(-0%, ${tubitosY}%) translateX(${tubitosX}vw) rotate(-10deg) scale(${0.82 + 0.16 * Math.max(0, reveal)})`,
+                    opacity: Math.max(0, reveal),
+                    filter: 'drop-shadow(0 12px 24px rgba(255,0,64,0.35))'
+                  }}
+                  loading="lazy"
+                />
+              );
+            })()}
             {/* Imagen derecha */}
             <img
-              src="/DORITOS_flamin%27hot.png"
-              alt="Bolsa Doritos Flamin Hot"
+              src="/FlaminHot.png"
+              alt="Doritos Flamin' Hot"
               className="pointer-events-none hidden md:block absolute -right-6 md:-right-16 top-1/2 w-56 md:w-72 lg:w-80 drop-shadow-2xl z-10 will-change-transform"
               style={{
                 transform: `translateY(-50%) translateX(${(52 - 40 * scrollProgress)}vw) scale(${0.9 + 0.25 * scrollProgress})`,
@@ -112,92 +257,45 @@ const ProductShowcase: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-black flame-text font-['Bebas_Neue'] mb-6">
-            EMPANADA REVOLUCIONARIA
-          </h2>
-          <p className="text-purple-200 text-xl max-w-3xl mx-auto">
-            Cada mordida es una explosión de sabor que combina la tradición argentina con la intensidad única de Doritos Flamin' Hot
-          </p>
-        </div>
-
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center mb-20">
-          {/* Main Product 3D */}
-          <div className="lg:col-span-2">
-            <div className="relative">
-              <div className="relative rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden bg-black">
-                {/* FlameCanvas de toda la card (único, desde el borde inferior) */}
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                  <FlameCanvas className="absolute inset-0" density={1.2} colorAlpha={0.9} shadowBlur={18} />
-                </div>
-                <div className="relative z-10 h-[420px] md:h-96 flex items-center justify-center">
-                  <div className="w-full h-full max-w-3xl mx-auto">
-                    {/* Vapor detras */}
-                    <div className="pointer-events-none absolute inset-0 z-0">
-                      <SteamOverlay intensity={0.85} className="absolute inset-0" />
-                    </div>
-                    <model-viewer
-                      src="/Doritos-3D.glb"
-                      alt="Empanada Premium con Doritos Flamin' Hot"
-                      camera-controls
-                      auto-rotate
-                      shadow-intensity="0.8"
-                      exposure="1.0"
-                      interaction-prompt="none"
-                      disable-zoom
-                      camera-orbit="15deg 70deg 85%"
-                      field-of-view="23deg"
-                      tone-mapping="neutral"
-                      style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent', position: 'relative', zIndex: 1 }}
-                    />
-                  </div>
-                </div>
-                <div className="relative z-10 text-center mt-4 md:mt-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Empanada Premium</h3>
-                  <p className="text-fuchsia-300">Con topping Doritos Flamin' Hot</p>
-                </div>
+              {/* Botón de notificaciones debajo del countdown */}
+              <div className="mt-8 flex justify-center">
+                <button
+                  onClick={async () => {
+                    try {
+                      if ('Notification' in window) {
+                        const permission = await Notification.requestPermission();
+                        setNotificationPermission(permission);
+                        if (permission === 'granted') {
+                          // Vibración de confirmación en móviles
+                          if ('vibrate' in navigator) {
+                            navigator.vibrate([100, 50, 100]); // Vibración de confirmación
+                          }
+                          
+                          // Mostrar confirmación visual
+                          const button = event?.target as HTMLButtonElement;
+                          if (button) {
+                            button.textContent = '¡Notificaciones activadas! 🔔';
+                            button.className = button.className.replace('from-fuchsia-600 to-purple-600', 'from-green-600 to-emerald-600');
+                            setTimeout(() => {
+                              button.textContent = 'Notificaciones activadas';
+                              button.className = button.className.replace('from-green-600 to-emerald-600', 'from-fuchsia-600 to-purple-600');
+                            }, 2000);
+                          }
+                        }
+                      }
+                    } catch (err) {
+                      console.error('Error requesting notification permission:', err);
+                    }
+                  }}
+                  className="group px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-semibold text-sm shadow-lg hover:from-fuchsia-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-105"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Bell className="w-4 h-4" />
+                    {notificationPermission === 'granted' ? 'Notificaciones activadas' : 'Activar Notificaciones'}
+                  </span>
+                </button>
               </div>
             </div>
-          </div>
-
-          {/* Detalles del producto a la derecha del 3D */}
-          <div className="space-y-7 lg:mt-0 lg:pl-12 lg:border-l lg:border-fuchsia-500/20 lg:self-stretch lg:flex lg:flex-col lg:justify-center">
-            {[
-              {
-                title: "Masa Artesanal",
-                description: "Elaborada con la receta tradicional de Mi Gusto, perfecta para contener toda la intensidad",
-                icon: "🥟"
-              },
-              {
-                title: "Relleno Intenso",
-                description: "Carne premium sazonada con especias que complementan el Flamin' Hot",
-                icon: "🔥"
-              },
-              {
-                title: "Topping Crujiente",
-                description: "Doritos Flamin' Hot molidos incorporados para un contraste de texturas único",
-                icon: (
-                  <img
-                    src="/dorito.png"
-                    alt="Dorito"
-                    className="w-8 h-8 inline-block"
-                    loading="lazy"
-                  />
-                )
-              }
-            ].map((item, index) => (
-              <div key={index} className="text-left p-0 border-0 bg-transparent">
-                <div className="flex items-start gap-4 min-h-[56px]">
-                  <div className="text-2xl mt-1">{item.icon}</div>
-                  <div>
-                    <h4 className="text-white font-bold text-base mb-1 leading-tight">{item.title}</h4>
-                    <p className="text-purple-300 leading-snug text-sm max-w-sm">{item.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
         

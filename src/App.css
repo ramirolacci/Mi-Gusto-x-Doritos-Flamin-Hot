@@ -276,10 +276,12 @@ body {
 /* Tarjetas de features mejoradas */
 .feature-card-pro {
   position: relative;
-  background: linear-gradient(180deg, rgba(68, 0, 95, 0.35) 0%, rgba(36, 0, 56, 0.35) 100%);
-  border: 1px solid rgba(217, 70, 239, 0.25);
+  background: linear-gradient(180deg, rgba(68, 0, 95, 0.45) 0%, rgba(36, 0, 56, 0.45) 100%);
+  border: 1px solid rgba(217, 70, 239, 0.35);
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1.5rem 1.25rem 1.5rem 1.25rem;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease, background 300ms ease;
+  backdrop-filter: blur(6px);
 }
 
 .feature-card-pro::before {
@@ -292,27 +294,67 @@ body {
   pointer-events: none;
 }
 
+.feature-card-pro:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(236, 72, 153, 0.25);
+  border-color: rgba(217, 70, 239, 0.6);
+  background: linear-gradient(180deg, rgba(88, 0, 115, 0.55) 0%, rgba(44, 0, 64, 0.55) 100%);
+}
+
 .feature-icon-pro {
   position: relative;
-  width: 3rem;
-  height: 3rem;
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.75rem;
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(147, 51, 234, 0.9));
-  box-shadow: 0 12px 30px rgba(236, 72, 153, 0.35);
+  border-radius: 9999px; /* sin fondo, solo icono circular libre */
+  background: transparent;
+  box-shadow: none;
+  padding: 0.125rem;
 }
 
 .feature-icon-pro::after {
   content: '';
   position: absolute;
-  inset: -2px;
+  inset: -6px;
   border-radius: inherit;
-  background: conic-gradient(from 0deg, rgba(236,72,153,0.4), rgba(147,51,234,0.4), rgba(236,72,153,0.4));
-  filter: blur(10px);
-  opacity: 0.6;
+  background: radial-gradient(circle at 50% 50%, rgba(236,72,153,0.45), rgba(147,51,234,0.35), transparent 70%);
+  filter: blur(12px);
+  opacity: 0.4;
   z-index: -1;
+}
+
+/* Línea vertical de guía épica al lado izquierdo de la lista */
+.features-epic {
+  position: relative;
+}
+.features-epic::before {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, rgba(236,72,153,0.0), rgba(236,72,153,0.35), rgba(147,51,234,0.35), rgba(236,72,153,0.0));
+  box-shadow: 0 0 20px rgba(236,72,153,0.35);
+}
+
+/* Subrayado sutil para los títulos de features */
+.feature-card-pro h4 {
+  position: relative;
+}
+.feature-card-pro h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 56px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(236,72,153,1), rgba(147,51,234,1));
+  box-shadow: 0 0 12px rgba(236,72,153,0.45);
 }
 
 @media (max-width: 768px) {
@@ -370,4 +412,54 @@ body::-webkit-scrollbar {
 @keyframes marquee-loop {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-1 * var(--marquee-shift, 50%))); }
+}
+
+/* ---------- Hero title reveal effects ---------- */
+.reveal-slide {
+  position: relative;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  clip-path: inset(0 100% 0 0);
+  animation: revealSlide 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    clip-path: inset(0 100% 0 0);
+  }
+  60% { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.reveal-delay-1 { animation-delay: 0.05s; }
+.reveal-delay-2 { animation-delay: 0.18s; }
+.reveal-delay-3 { animation-delay: 0.32s; }
+.reveal-delay-4 { animation-delay: 0.50s; }
+.reveal-delay-5 { animation-delay: 0.70s; }
+
+/* Shine sweep across the word after reveal */
+.shine {
+  position: relative;
+  display: inline-block;
+}
+.shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.25) 50%, transparent 80%);
+  transform: translateX(-120%);
+  animation: shineSweep 1200ms ease-out 0.8s forwards;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@keyframes shineSweep {
+  to { transform: translateX(120%); }
 }

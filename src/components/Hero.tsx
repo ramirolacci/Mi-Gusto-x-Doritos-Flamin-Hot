@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Flame, Bell } from 'lucide-react';
+import { Flame } from 'lucide-react';
+import FlameCanvas from './FlameCanvas';
 
 const Hero: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,24 +30,6 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 md:pb-24">
-      {/* Botón flotante de notificaciones */}
-      <button
-        onClick={async () => {
-          try {
-            if ('Notification' in window) {
-              await Notification.requestPermission();
-            }
-          } catch (err) {
-            // noop
-          }
-        }}
-        className="fixed top-5 right-5 z-50 px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white font-semibold text-sm shadow-lg hover:from-fuchsia-500 hover:to-purple-500 transition-colors"
-      >
-        <span className="inline-flex items-center gap-2">
-          <Bell className="w-4 h-4" />
-          Activar Notificaciones
-        </span>
-      </button>
       {/* Video de fondo */}
       <div className="absolute inset-0">
         <video
@@ -64,18 +47,22 @@ const Hero: React.FC = () => {
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         <div className={`transition-all duration-1000 ${isLoaded ? 'fade-in-up' : 'opacity-0 translate-y-10'}`}>
 
-          {/* Main Title */}
-          <h1 className="font-black text-6xl md:text-8xl lg:text-9xl mb-8 leading-none tracking-wide">
-            <span className="block flame-text font-['Bebas_Neue']">Mi Gusto</span>
-            <span className="block text-white font-['Bebas_Neue'] text-shadow-glow">×</span>
-            <span className="block flame-text font-['Bebas_Neue']">DORITOS</span>
+          {/* Main Title with reveal */}
+          <h1 className="relative z-10 font-black text-6xl md:text-8xl lg:text-9xl mb-8 leading-none tracking-wide">
+            <span className="block flame-text font-['Bebas_Neue'] reveal-slide reveal-delay-1 shine">Mi Gusto</span>
+            <span className="block text-white font-['Bebas_Neue'] text-shadow-glow reveal-slide reveal-delay-2">×</span>
+            <span className="block flame-text font-['Bebas_Neue'] reveal-slide reveal-delay-3 shine">DORITOS</span>
           </h1>
 
-          {/* Subtitle */}
-          <div className="mb-10">
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 tracking-wide">
-              EMPANADA <span className="flame-text flame-fire">FLAMIN' HOT</span>
+          {/* Subtitle with reveal y fuego emergiendo desde el texto */}
+          <div className="mb-10 relative">
+            <h2 className="relative z-10 text-2xl md:text-4xl font-bold text-white mb-4 tracking-wide reveal-slide reveal-delay-4">
+              EMPANADA <span className="flame-text flame-fire shine">FLAMIN' HOT</span>
             </h2>
+            {/* Fuego saliendo desde el subtítulo */}
+            <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-16 md:h-20">
+              <FlameCanvas className="absolute inset-0" density={0.9} colorAlpha={0.7} shadowBlur={24} />
+            </div>
           </div>
 
           {/* CTA Button */}
