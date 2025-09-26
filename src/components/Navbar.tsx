@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black h-16 flex items-center justify-center"
+      className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-center bg-black/60 backdrop-blur-md supports-[backdrop-filter]:bg-black/50 border-b border-white/10"
       aria-label="Barra de navegación"
     >
       <a

@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
   const showMarquees = false; // bandera para ocultar/mostrar las franjas
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 md:pb-24">
       {/* Botón flotante de notificaciones */}
       <button
         onClick={async () => {
@@ -58,29 +58,29 @@ const Hero: React.FC = () => {
           playsInline
         />
       </div>
-      {/* Overlay removido para mantener color original del video */}
+      {/* Sin overlays: el video queda limpio, sin viñeta ni fades */}
 
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         <div className={`transition-all duration-1000 ${isLoaded ? 'fade-in-up' : 'opacity-0 translate-y-10'}`}>
 
           {/* Main Title */}
-          <h1 className="font-black text-6xl md:text-8xl lg:text-9xl mb-6 leading-none">
+          <h1 className="font-black text-6xl md:text-8xl lg:text-9xl mb-8 leading-none tracking-wide">
             <span className="block flame-text font-['Bebas_Neue']">Mi Gusto</span>
             <span className="block text-white font-['Bebas_Neue'] text-shadow-glow">×</span>
             <span className="block flame-text font-['Bebas_Neue']">DORITOS</span>
           </h1>
 
           {/* Subtitle */}
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+          <div className="mb-10">
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 tracking-wide">
               EMPANADA <span className="flame-text flame-fire">FLAMIN' HOT</span>
             </h2>
           </div>
 
           {/* CTA Button */}
           <div className="flex justify-center items-center">
-            <button className="group px-8 py-4 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-lg transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 transform hover:scale-105">
+            <button className="group px-10 py-4 md:px-12 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-lg transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 transform hover:scale-105">
               <span className="flex items-center gap-2">
                 <Flame className="w-5 h-5 group-hover:animate-bounce" />
                 Descubrir Ahora

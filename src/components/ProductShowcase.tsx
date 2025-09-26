@@ -53,14 +53,18 @@ const ProductShowcase: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/50 to-black" />
-      <div className="absolute inset-0 gradient-bg opacity-50" />
+    <section ref={sectionRef} className="py-24 md:py-28 relative overflow-hidden">
+      {/* Background más intenso */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/70 to-black" />
+      <div className="absolute inset-0 gradient-bg opacity-80" />
+      {/* Fade superior para fusionar con el video */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/80 via-black/40 to-transparent" />
+      {/* Fade inferior para transición hacia CTA */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Section Header (badge removido) */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-14 md:mb-16">
           <div ref={epicRef} className="relative inline-block">
             <h3 className="text-6xl md:text-7xl lg:text-8xl leading-none tracking-wide font-black flame-text text-shadow-glow font-['Bebas_Neue'] mb-8">
               ALGO EPICO ESTA LLEGANDO
@@ -119,7 +123,7 @@ const ProductShowcase: React.FC = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center mb-20">
           {/* Main Product 3D */}
           <div className="lg:col-span-2">
             <div className="relative">
@@ -159,7 +163,7 @@ const ProductShowcase: React.FC = () => {
           </div>
 
           {/* Detalles del producto a la derecha del 3D */}
-          <div className="space-y-6 lg:mt-0 lg:pl-10 lg:border-l lg:border-fuchsia-500/20 lg:self-stretch lg:flex lg:flex-col lg:justify-center">
+          <div className="space-y-7 lg:mt-0 lg:pl-12 lg:border-l lg:border-fuchsia-500/20 lg:self-stretch lg:flex lg:flex-col lg:justify-center">
             {[
               {
                 title: "Masa Artesanal",

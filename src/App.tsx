@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen page-bg">
       {/* Definiciones SVG globales para gradientes reutilizables */}
       <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
         <defs>
