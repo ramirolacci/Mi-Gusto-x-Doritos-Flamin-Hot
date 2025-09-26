@@ -1,6 +1,6 @@
 import React from 'react';
 import FlameCanvas from './FlameCanvas';
-import { Instagram, Twitter, Facebook, Mail } from 'lucide-react';
+import { Instagram, Twitter, Facebook } from 'lucide-react';
 
 const CallToAction: React.FC = () => {
   return (
@@ -10,31 +10,7 @@ const CallToAction: React.FC = () => {
       {/* Overlay violeta sobre el efecto (intenso, sin mezcla) */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-purple-950/85 via-black/40 to-black/20" />
       
-      <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
-        {/* Main CTA removida por pedido */}
-        {/* Secondary Actions */}
-        <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto mb-16">
-            <div className="bg-gradient-to-br from-purple-900/30 to-fuchsia-900/30 rounded-2xl p-6 border border-fuchsia-500/20 hover-lift">
-              <h4 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-                <Mail className="w-5 h-5 text-yellow-400" />
-                Newsletter Exclusivo
-              </h4>
-              <p className="text-purple-300 mb-4 text-sm">
-                Recibe ofertas especiales y noticias sobre próximos lanzamientos
-              </p>
-              <div className="flex gap-2">
-                <input 
-                  type="email" 
-                  placeholder="tu@email.com" 
-                  className="flex-1 px-4 py-2 bg-black/50 border border-purple-600 rounded-lg text-white placeholder-purple-400 focus:border-fuchsia-500 focus:outline-none"
-                />
-                <button className="px-4 py-2 bg-fuchsia-600 text-white rounded-lg hover:bg-fuchsia-500 transition-colors">
-                  Suscribir
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Sección de Newsletter eliminada por solicitud */}
 
         {/* Footer */}
         <div className="relative z-10 max-w-6xl mx-auto px-4">
