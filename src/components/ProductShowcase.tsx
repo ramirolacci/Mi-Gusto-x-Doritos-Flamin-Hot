@@ -201,36 +201,50 @@ const ProductShowcase: React.FC = () => {
           {/* Main Product 3D */}
           <div className="lg:col-span-2">
             <div className="relative">
-              <div className="relative rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden bg-black">
+              <div className="relative rounded-3xl p-2 md:p-4 border border-fuchsia-500/20 overflow-visible bg-transparent">
                 {/* FlameCanvas de toda la card (único, desde el borde inferior) */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
                   <FlameCanvas className="absolute inset-0" density={2.5} colorAlpha={1.2} shadowBlur={25} />
                 </div>
-                <div className="relative z-10 h-[520px] md:h-[560px] lg:h-[600px] flex items-center justify-center">
-                  <div className="w-full h-full max-w-4xl mx-auto">
-                    {/* Vapor detras */}
-                    <div className="pointer-events-none absolute inset-0 z-0">
-                      <SteamOverlay intensity={0.85} className="absolute inset-0" />
-                    </div>
-                    <model-viewer
-                      src="/Doritos-3D.glb"
-                      alt="Empanada Premium con Doritos Flamin' Hot"
-                      camera-controls
-                      auto-rotate
-                      shadow-intensity="0.8"
-                      exposure="1.0"
-                      interaction-prompt="none"
-                      disable-zoom
-                      camera-orbit="90deg 75deg 78%"
-                      field-of-view="23deg"
-                      tone-mapping="neutral"
-                      style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent', position: 'relative', zIndex: 1 }}
-                    />
+                
+                {/* Contenedor del modelo 3D - se extiende sin límites */}
+                <div className="relative z-5 w-full h-[600px] md:h-[700px] lg:h-[800px] -m-2 md:-m-4">
+                  {/* Vapor detras */}
+                  <div className="pointer-events-none absolute inset-0 z-0">
+                    <SteamOverlay intensity={0.85} className="absolute inset-0" />
                   </div>
+                  <model-viewer
+                    src="/Doritos-3D.glb"
+                    alt="Empanada Premium con Doritos Flamin' Hot"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="0.8"
+                    exposure="1.0"
+                    interaction-prompt="none"
+                    disable-zoom
+                    camera-orbit="90deg 75deg 160%"
+                    min-camera-orbit="auto auto 140%"
+                    field-of-view="45deg"
+                    min-field-of-view="40deg"
+                    tone-mapping="neutral"
+                    style={{ 
+                      width: 'calc(100% + 32px)', 
+                      height: 'calc(100% + 64px)', 
+                      outline: 'none', 
+                      background: 'transparent', 
+                      position: 'absolute',
+                      top: '-32px',
+                      left: '-16px',
+                      zIndex: 1,
+                      transform: 'scale(0.95)'
+                    }}
+                  />
                 </div>
-                <div className="relative z-10 text-center mt-4 md:mt-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Empanada Premium</h3>
-                  <p className="text-fuchsia-300">Con topping Doritos Flamin' Hot</p>
+                
+                {/* Textos superpuestos: el modelo queda por detrás */}
+                <div className="absolute left-0 right-0 bottom-6 md:bottom-8 z-20 text-center px-4">
+                  <h3 className="text-2xl font-bold text-white mb-1 md:mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">Empanada Premium</h3>
+                  <p className="text-fuchsia-300 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">Con Doritos Flamin' Hot</p>
                 </div>
               </div>
             </div>

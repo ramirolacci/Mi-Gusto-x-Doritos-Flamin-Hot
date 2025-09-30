@@ -14,22 +14,45 @@ body {
 }
 
 .flame-text {
-  background: linear-gradient(45deg, #FF0040, #FF6B00, #FFFF00, #FF0080);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: flameGradient 3s ease-in-out infinite;
+  /* Fallback seguro: texto visible aunque no haya soporte */
+  color: #ffffff;
+  display: inline-block !important;
+  mix-blend-mode: normal !important;
+  animation: flameGradient 3s ease-in-out infinite !important;
 }
 
 /* Variante sin cambios de tamaño para textos pequeños/inline */
 .flame-text-inline {
-  background: linear-gradient(45deg, #FF0040, #FF6B00, #FFFF00, #FF0080);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: flameGradient 3s ease-in-out infinite;
+  color: #ffffff;
+  display: inline-block !important;
+  mix-blend-mode: normal !important;
+  animation: flameGradient 3s ease-in-out infinite !important;
+}
+
+/* Activa degradado donde haya soporte de background-clip:text */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .flame-text, .flame-text-inline, .force-gradient {
+    background-image: linear-gradient(45deg, #FF0040, #FF6B00, #FFFF00, #FF0080) !important;
+    background-size: 400% 400% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+  }
+}
+
+/* Refuerzo explícito para casos en los que utilidades sobrescriben el gradiente */
+.force-gradient {
+  /* Mantener como alias que se beneficia del bloque @supports */
+}
+
+/* Alternativa basada en máscara (por si algún navegador bloquea background-clip) */
+.flame-mask {
+  color: #fff;
+  background: linear-gradient(45deg, #FF0040, #FF6B00, #FFFF00, #FF0080) !important;
+  -webkit-mask-image: linear-gradient(#fff, #fff);
+  -webkit-mask-clip: text;
+  -webkit-mask-composite: source-in;
 }
 
 /* Efecto de fuego extra para palabras destacadas */

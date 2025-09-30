@@ -41,3 +41,72 @@
     z-index: 20;
   }
 }
+
+/* ---------- Efectos cinematográficos avanzados ---------- */
+.cinematic-parallax {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.cinematic-overlay {
+  mix-blend-mode: multiply;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.curtain-reveal {
+  transform-origin: bottom;
+  transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dynamic-glow {
+  filter: drop-shadow(0 0 20px rgba(255, 0, 128, 0.3));
+  transition: filter 0.5s ease;
+}
+
+.video-sync-overlay {
+  animation: videoSync 2s ease-in-out infinite alternate;
+}
+
+@keyframes videoSync {
+  0% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.scroll-progress-bar {
+  background: linear-gradient(180deg, 
+    rgba(255,255,255,0.9) 0%, 
+    rgba(255,255,255,0.6) 50%, 
+    rgba(255,255,255,0.3) 100%);
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  transition: height 0.1s ease;
+}
+
+.particle-drift {
+  animation: particleDrift 8s ease-in-out infinite;
+}
+
+@keyframes particleDrift {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% { 
+    transform: translate(10px, -5px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translate(-5px, -10px) scale(0.9);
+    opacity: 0.4;
+  }
+  75% { 
+    transform: translate(-10px, 5px) scale(1.05);
+    opacity: 0.6;
+  }
+}
