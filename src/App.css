@@ -463,3 +463,142 @@ body::-webkit-scrollbar {
 @keyframes shineSweep {
   to { transform: translateX(120%); }
 }
+
+/* ---------- Logo reveal effect por 3 partes ---------- */
+.reveal-logo-parts {
+  position: relative;
+  display: inline-block;
+  opacity: 0;
+  animation: revealLogoParts 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.reveal-logo-parts::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.1) 0%, 
+    rgba(255,255,255,0.1) 33%, 
+    transparent 33%, 
+    transparent 66%, 
+    rgba(255,255,255,0.1) 66%, 
+    rgba(255,255,255,0.1) 100%
+  );
+  animation: partsGlow 2.5s ease-out forwards;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes revealLogoParts {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+  }
+  15% {
+    opacity: 0.3;
+    transform: scale(0.6);
+    clip-path: polygon(0% 0%, 33% 0%, 33% 100%, 0% 100%);
+  }
+  35% {
+    opacity: 0.6;
+    transform: scale(0.8);
+    clip-path: polygon(0% 0%, 66% 0%, 66% 100%, 0% 100%);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(0.9);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+@keyframes partsGlow {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  15% {
+    opacity: 0.8;
+    transform: scaleX(0.33);
+  }
+  35% {
+    opacity: 0.6;
+    transform: scaleX(0.66);
+  }
+  60% {
+    opacity: 0.4;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+.reveal-logo-delay {
+  animation-delay: 0.3s;
+}
+
+/* ---------- Animación de movimiento continuo para el logo ---------- */
+.logo-float {
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-6px) rotate(-1deg);
+  }
+}
+
+/* ---------- Animación de destello impresionante para el logo ---------- */
+.logo-flash {
+  animation: logoFlash 2s ease-out forwards;
+}
+
+@keyframes logoFlash {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1) drop-shadow(0 0 0px rgba(255,255,255,0));
+  }
+  10% {
+    transform: scale(1.1) rotate(2deg);
+    filter: brightness(2) drop-shadow(0 0 20px rgba(255,255,255,0.8));
+  }
+  20% {
+    transform: scale(1.2) rotate(-1deg);
+    filter: brightness(3) drop-shadow(0 0 40px rgba(255,255,255,1)) drop-shadow(0 0 60px rgba(255,255,255,0.8));
+  }
+  30% {
+    transform: scale(1.15) rotate(1deg);
+    filter: brightness(2.5) drop-shadow(0 0 30px rgba(255,255,255,0.9));
+  }
+  40% {
+    transform: scale(1.1) rotate(0deg);
+    filter: brightness(2) drop-shadow(0 0 20px rgba(255,255,255,0.7));
+  }
+  50% {
+    transform: scale(1.05) rotate(0deg);
+    filter: brightness(1.5) drop-shadow(0 0 15px rgba(255,255,255,0.5));
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1) drop-shadow(0 0 0px rgba(255,255,255,0));
+  }
+}

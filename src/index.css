@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Marquee horizontal para cintas promocionales */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer components {
+  .marquee {
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-left 18s linear infinite;
+    will-change: transform;
+  }
+  
+  /* Efecto viñeta para video */
+  .vignette-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  .vignette-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 15%, transparent 30%, transparent 70%, rgba(0,0,0,0.7) 85%, rgba(0,0,0,0.9) 100%),
+      radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0.8) 100%);
+    pointer-events: none;
+    z-index: 20;
+  }
+}

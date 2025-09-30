@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import SteamOverlay from './SteamOverlay';
 import FlameCanvas from './FlameCanvas';
+import Confetti from './Confetti';
 import { Bell } from 'lucide-react';
 
 const ProductShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const epicRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -16,6 +18,9 @@ const ProductShowcase: React.FC = () => {
   const [postArrivalProgress, setPostArrivalProgress] = useState(0); // progreso extra luego de que la empanada llega al contador
   const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
   const [notificationScheduled, setNotificationScheduled] = useState(false);
+  const [logoRevealed, setLogoRevealed] = useState(false);
+  const [logoFlash, setLogoFlash] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const launchDate = new Date('2025-10-16T00:00:00');
@@ -43,8 +48,7 @@ const ProductShowcase: React.FC = () => {
             badge: '/dorito.png',
             tag: 'empanada-launch',
             requireInteraction: true,
-            silent: false,
-            vibrate: [200, 100, 200, 100, 200] // Vibración adicional en la notificación
+            silent: false
           });
           setNotificationScheduled(true);
         }
@@ -52,6 +56,42 @@ const ProductShowcase: React.FC = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, [notificationPermission, notificationScheduled]);
+
+  // Intersection Observer para el logo reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !logoRevealed) {
+            setLogoRevealed(true);
+            setShowConfetti(true);
+            // Reset confetti después de 3 segundos
+            setTimeout(() => setShowConfetti(false), 3000);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Se dispara cuando el 30% del logo es visible
+        rootMargin: '0px 0px -50px 0px' // Se dispara un poco antes de que esté completamente visible
+      }
+    );
+
+    if (logoRef.current) {
+      observer.observe(logoRef.current);
+    }
+
+    return () => {
+      if (logoRef.current) {
+        observer.unobserve(logoRef.current);
+      }
+    };
+  }, [logoRevealed]);
+
+  // Función para el click del logo
+  const handleLogoClick = () => {
+    setLogoFlash(true);
+    setTimeout(() => setLogoFlash(false), 2000); // Reset después de 2 segundos
+  };
 
   useEffect(() => {
     const update = () => {
@@ -93,6 +133,26 @@ const ProductShowcase: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Empanada Revolucionaria: mover debajo del video (al inicio de esta sección) */}
         <div className="text-center mb-14 md:mb-16">
+          {/* Logo grande arriba del título */}
+          <div ref={logoRef} className="mb-2 -mt-16 md:-mt-20 lg:-mt-24 relative">
+            <img
+              src="/LogoEmp.png"
+              alt="Logo Empanada"
+              onClick={handleLogoClick}
+              className={`mx-auto w-96 md:w-[28rem] lg:w-[32rem] xl:w-[56rem] h-auto cursor-pointer transition-all duration-1000 ${
+                logoRevealed ? 'opacity-100 translate-y-0 scale-100 shine logo-float' : 'opacity-0 translate-y-10 scale-95'
+              } ${logoFlash ? 'logo-flash' : ''}`}
+            />
+            {/* Confetti con Tubito.png - por encima del logo */}
+            <div className="absolute inset-0 z-50">
+              <Confetti 
+                trigger={showConfetti} 
+                imageSrc="/Tubito.png" 
+                count={15} 
+                duration={2500} 
+              />
+            </div>
+          </div>
           <h2 className="text-5xl md:text-6xl font-black flame-text font-['Bebas_Neue'] mb-6">
             EMPANADA REVOLUCIONARIA
           </h2>
@@ -109,7 +169,7 @@ const ProductShowcase: React.FC = () => {
               <div className="relative rounded-3xl p-4 md:p-8 border border-fuchsia-500/20 overflow-hidden bg-black">
                 {/* FlameCanvas de toda la card (único, desde el borde inferior) */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
-                  <FlameCanvas className="absolute inset-0" density={1.2} colorAlpha={0.9} shadowBlur={18} />
+                  <FlameCanvas className="absolute inset-0" density={2.5} colorAlpha={1.2} shadowBlur={25} />
                 </div>
                 <div className="relative z-10 h-[520px] md:h-[560px] lg:h-[600px] flex items-center justify-center">
                   <div className="w-full h-full max-w-4xl mx-auto">
@@ -136,6 +196,15 @@ const ProductShowcase: React.FC = () => {
                 <div className="relative z-10 text-center mt-4 md:mt-6">
                   <h3 className="text-2xl font-bold text-white mb-2">Empanada Premium</h3>
                   <p className="text-fuchsia-300">Con topping Doritos Flamin' Hot</p>
+                </div>
+              </div>
+            </div>
+            {/* Marquee: Pican, pero rico! */}
+            <div className="hidden">
+              <div className="marquee bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-y border-fuchsia-500/30 py-3">
+                <div className="marquee-track text-black font-bold tracking-wide">
+                  <span className="text-2xl md:text-3xl font-['Bebas_Neue'] px-6 whitespace-nowrap">Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!</span>
+                  <span className="text-2xl md:text-3xl font-['Bebas_Neue'] px-6 whitespace-nowrap">Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!</span>
                 </div>
               </div>
             </div>
@@ -194,11 +263,11 @@ const ProductShowcase: React.FC = () => {
             </h3>
             {/* Imagen izquierda */}
             <img
-              src="/burgerLoading.png"
+              src="/CRUNCHY.png"
               alt="Empanada abierta"
-              className="pointer-events-none hidden md:block absolute -left-6 md:-left-16 top-1/2 w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl z-10 will-change-transform"
+              className="pointer-events-none hidden md:block absolute -left-6 md:-left-16 top-1/2 w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl z-30 will-change-transform"
               style={{
-                transform: `translateY(-50%) translateX(${(-52 + 40 * scrollProgress)}vw) scale(${0.9 + 0.25 * scrollProgress})`,
+                transform: `translateY(-50%) translateX(${(-56 + 44 * scrollProgress)}vw) scale(${0.9 + 0.25 * scrollProgress})`,
                 opacity: Math.min(1, Math.max(0, scrollProgress))
               }}
               loading="lazy"
@@ -208,7 +277,7 @@ const ProductShowcase: React.FC = () => {
               // Revelar solo después de que la empanada llegue al contador
               // Al inicio (reveal=0) quedan exactamente DETRÁS de la empanada y no se ven
               const reveal = Math.max(0, Math.min(1, (postArrivalProgress - 0.05) / 0.95));
-              const empanadaX = -52 + 40 * scrollProgress; // posición de la empanada
+              const empanadaX = -56 + 44 * scrollProgress; // posición de la empanada (más cerca del contador)
               const tubitosX = empanadaX - (6 * Math.max(0, reveal)); // desplazamiento lateral levemente mayor
               const tubitosY = -50 - 2 * Math.max(0, reveal); // ligera subida
               return (
@@ -225,11 +294,34 @@ const ProductShowcase: React.FC = () => {
                 />
               );
             })()}
-            {/* Imagen derecha */}
+            {/* Tubito Dinamita derecho: coreografía espejada del izquierdo, tamaño menor y detrás del Flamin Hot */}
+            {(() => {
+              const reveal = Math.max(0, Math.min(1, (postArrivalProgress - 0.05) / 0.95));
+              // Posición de referencia para el lado derecho (espejo del cálculo de la empanada izquierda)
+              const flaminX = 52 - 40 * scrollProgress;
+              const tubitosXRight = flaminX + (6 * reveal);
+              const tubitosYRight = -50 - 2 * reveal;
+              const scaleRight = 0.82 + 0.16 * reveal; // misma curva de escala
+              return (
+                <img
+                  src="/TubitoDinamita2.png"
+                  alt="Tubito Dinamita"
+                  className="pointer-events-none hidden md:block absolute -right-6 md:-right-16 top-1/2 w-36 md:w-44 lg:w-56 will-change-transform z-[9]"
+                  style={{
+                    transform: `translate(-0%, ${tubitosYRight}%) translateX(${tubitosXRight}vw) rotate(10deg) scale(${scaleRight})`,
+                    opacity: Math.max(0, reveal),
+                    filter: 'drop-shadow(0 10px 20px rgba(255,0,64,0.25))'
+                  }}
+                  loading="lazy"
+                />
+              );
+            })()}
+            
+            {/* Imagen derecha - Flamin Hot */}
             <img
               src="/FlaminHot.png"
               alt="Doritos Flamin' Hot"
-              className="pointer-events-none hidden md:block absolute -right-6 md:-right-16 top-1/2 w-56 md:w-72 lg:w-80 drop-shadow-2xl z-10 will-change-transform"
+              className="pointer-events-none hidden md:block absolute -right-6 md:-right-16 top-1/2 w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl z-20 will-change-transform"
               style={{
                 transform: `translateY(-50%) translateX(${(52 - 40 * scrollProgress)}vw) scale(${0.9 + 0.25 * scrollProgress})`,
                 opacity: Math.min(1, Math.max(0, scrollProgress))
@@ -298,7 +390,18 @@ const ProductShowcase: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
+      {/* Marquee: Pican, pero rico! (debajo del contador, ancho completo) */}
+      <div className="relative z-10 mt-6">
+        <div className="marquee bg-gradient-to-r from-fuchsia-700/80 via-purple-700/80 to-fuchsia-700/80 border-y-2 border-fuchsia-500/50 py-6 md:py-7">
+          <div className="marquee-track text-black font-extrabold tracking-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]">
+            <span className="text-5xl md:text-7xl lg:text-8xl font-['Bebas_Neue'] uppercase px-10 whitespace-nowrap">Pican, pero rico! — Pican, pero rico! — Pican, pero rico! — Pican, pero rico!</span>
+            <span className="text-5xl md:text-7xl lg:text-8xl font-['Bebas_Neue'] uppercase px-10 whitespace-nowrap">Pican, pero rico! — Pican, pero rico! — Pican, pero rico! — Pican, pero rico!</span>
+          </div>
+        </div>
+      </div>
+
+
       </div>
     </section>
   );

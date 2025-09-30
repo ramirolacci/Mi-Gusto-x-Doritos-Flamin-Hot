@@ -5,8 +5,8 @@ import { Instagram, Twitter, Facebook } from 'lucide-react';
 const CallToAction: React.FC = () => {
   return (
     <section className="py-24 md:py-28 relative overflow-hidden">
-      {/* Background con efecto de llamas */}
-      <FlameCanvas className="absolute inset-0" />
+      {/* Background con efecto de llamas intensificado */}
+      <FlameCanvas className="absolute inset-0 z-50" density={3.0} colorAlpha={1.5} shadowBlur={35} />
       {/* Overlay más intenso para reforzar contraste */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-purple-950/90 via-black/50 to-black/20" />
       {/* Fade inferior para fusionar con el final de la página */}
