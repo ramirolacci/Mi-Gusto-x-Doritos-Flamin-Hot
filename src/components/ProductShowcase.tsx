@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import SteamOverlay from './SteamOverlay';
 import FlameCanvas from './FlameCanvas';
 import Confetti from './Confetti';
-import { Bell } from 'lucide-react';
+// import { Bell } from 'lucide-react';
 
 const ProductShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -16,8 +16,9 @@ const ProductShowcase: React.FC = () => {
   });
   const [scrollProgress, setScrollProgress] = useState(0);
   const [postArrivalProgress, setPostArrivalProgress] = useState(0); // progreso extra luego de que la empanada llega al contador
-  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
-  const [notificationScheduled, setNotificationScheduled] = useState(false);
+  // Notificaciones eliminadas por solicitud
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [logoRevealed, setLogoRevealed] = useState(false);
   const [logoFlash, setLogoFlash] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -34,28 +35,10 @@ const ProductShowcase: React.FC = () => {
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000)
         });
-      } else if (distance <= 0 && notificationPermission === 'granted' && !notificationScheduled) {
-        // Cuando el contador llega a 0, enviar notificación con vibración
-        if ('Notification' in window) {
-          // Vibración en móviles si está disponible
-          if ('vibrate' in navigator) {
-            navigator.vibrate([200, 100, 200, 100, 200]); // Patrón de vibración épico
-          }
-          
-          new Notification('¡La empanada ya está aquí! 🔥', {
-            body: 'Mi Gusto × Doritos Flamin\' Hot ya está disponible. ¡No te la pierdas!',
-            icon: '/Logo Mi Gusto 2025.png',
-            badge: '/dorito.png',
-            tag: 'empanada-launch',
-            requireInteraction: true,
-            silent: false
-          });
-          setNotificationScheduled(true);
-        }
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [notificationPermission, notificationScheduled]);
+  }, []);
 
   // Intersection Observer para el logo reveal
   useEffect(() => {
@@ -349,43 +332,44 @@ const ProductShowcase: React.FC = () => {
                   </div>
                 ))}
               </div>
-              {/* Botón de notificaciones debajo del countdown */}
-              <div className="mt-8 flex justify-center">
-                <button
-                  onClick={async () => {
-                    try {
-                      if ('Notification' in window) {
-                        const permission = await Notification.requestPermission();
-                        setNotificationPermission(permission);
-                        if (permission === 'granted') {
-                          // Vibración de confirmación en móviles
-                          if ('vibrate' in navigator) {
-                            navigator.vibrate([100, 50, 100]); // Vibración de confirmación
-                          }
-                          
-                          // Mostrar confirmación visual
-                          const button = event?.target as HTMLButtonElement;
-                          if (button) {
-                            button.textContent = '¡Notificaciones activadas! 🔔';
-                            button.className = button.className.replace('from-fuchsia-600 to-purple-600', 'from-green-600 to-emerald-600');
-                            setTimeout(() => {
-                              button.textContent = 'Notificaciones activadas';
-                              button.className = button.className.replace('from-green-600 to-emerald-600', 'from-fuchsia-600 to-purple-600');
-                            }, 2000);
-                          }
-                        }
+              {/* Newsletter: suscripción para recibir novedades y notificaciones */}
+              <div className="mt-12 md:mt-14 max-w-xl mx-auto">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    inputMode="email"
+                    value={newsletterEmail}
+                    onChange={(e) => {
+                      setNewsletterEmail(e.target.value);
+                      if (newsletterStatus !== 'idle') setNewsletterStatus('idle');
+                    }}
+                    placeholder="example@gmail.com"
+                    className="flex-1 px-4 py-3 bg-black/50 border border-purple-600/60 rounded-xl text-white placeholder-purple-300 focus:border-fuchsia-500 focus:outline-none"
+                  />
+                  <button
+                    onClick={async () => {
+                      const email = newsletterEmail.trim();
+                      const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                      if (!isEmailValid) {
+                        setNewsletterStatus('error');
+                        return;
                       }
-                    } catch (err) {
-                      console.error('Error requesting notification permission:', err);
-                    }
-                  }}
-                  className="group px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-semibold text-sm shadow-lg hover:from-fuchsia-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-105"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <Bell className="w-4 h-4" />
-                    {notificationPermission === 'granted' ? 'Notificaciones activadas' : 'Activar Notificaciones'}
-                  </span>
-                </button>
+                      // Aquí luego integraremos el guardado en Google Sheets
+                      setNewsletterStatus('success');
+                    }}
+                    className="px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-xl text-white font-semibold shadow-lg hover:from-fuchsia-500 hover:to-purple-500 transition-colors"
+                  >
+                    Avisame
+                  </button>
+                </div>
+                <div className="mt-2 min-h-[1.25rem]">
+                  {newsletterStatus === 'error' && (
+                    <p className="text-sm text-red-400">Por favor ingresa un correo válido.</p>
+                  )}
+                  {newsletterStatus === 'success' && (
+                    <p className="text-sm text-fuchsia-300">¡Listo! Te avisaremos con las últimas novedades.</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
