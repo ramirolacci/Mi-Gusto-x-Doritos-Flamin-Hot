@@ -1,12 +1,46 @@
 import React from 'react';
 import FlameCanvas from './FlameCanvas';
-import { Instagram, Twitter, Facebook } from 'lucide-react';
+import { Instagram } from 'lucide-react';
+
+// Iconos inline con estilo de trazo para que coincidan con Lucide
+// Icono oficial de X (Twitter) basado en Simple Icons, con relleno para buena legibilidad
+const XTwitterIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    className={className}
+    aria-hidden="true"
+    fill="currentColor"
+  >
+    <path d="M18.244 2H21.5l-7.5 8.57L23 22h-6.422l-5.02-6.545L5.77 22H2.5l8.06-9.202L2 2h6.578l4.53 6.06L18.244 2Zm-1.126 18.286h1.86L7.94 3.636H6.01l11.108 16.65Z"/>
+  </svg>
+);
+
+const TikTokIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-hidden="true"
+    fill="none"
+  >
+    {/* TikTok de trazo para armonizar con Lucide */}
+    <path
+      d="M14.5 3c.4 2.1 1.9 3.9 4 4.4v2.2c-1.5-.1-2.9-.7-4-1.6v6.6a6 6 0 11-6-6c.5 0 1 .1 1.5.2v2.5c-.5-.2-1-.3-1.5-.3a3.7 3.7 0 103.7 3.7V3h2.3z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+    />
+  </svg>
+);
 
 const CallToAction: React.FC = () => {
   return (
     <section className="py-24 md:py-28 relative overflow-hidden">
       {/* Background con efecto de llamas intensificado */}
-      <FlameCanvas className="absolute inset-0 z-50" density={3.0} colorAlpha={1.5} shadowBlur={35} />
+      <FlameCanvas className="absolute inset-0 z-50 pointer-events-none" density={3.0} colorAlpha={1.5} shadowBlur={35} />
       {/* Overlay más intenso para reforzar contraste */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-purple-950/90 via-black/50 to-black/20" />
       {/* Fade inferior para fusionar con el final de la página */}
@@ -52,13 +86,15 @@ const CallToAction: React.FC = () => {
                 </h4>
                 <div className="flex gap-3 md:gap-4 justify-end">
                   {[
-                    { icon: Instagram, label: 'Instagram' },
-                    { icon: Twitter, label: 'Twitter' },
-                    { icon: Facebook, label: 'Facebook' }
+                    { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/migustoar/?hl=es' },
+                    { icon: XTwitterIcon, label: 'X (Twitter)', href: 'https://x.com/migustoar?lang=es' },
+                    { icon: TikTokIcon, label: 'TikTok', href: 'https://www.tiktok.com/@migustoar?lang=es' }
                   ].map((social, index) => (
                     <a
                       key={index}
-                      href="#"
+                      href={social.href || '#'}
+                      target={social.href ? '_blank' : undefined}
+                      rel={social.href ? 'noopener noreferrer' : undefined}
                       className="inline-flex items-center justify-center hover:scale-110 transition-transform duration-200 text-white hover:text-fuchsia-400"
                       title={social.label}
                     >
