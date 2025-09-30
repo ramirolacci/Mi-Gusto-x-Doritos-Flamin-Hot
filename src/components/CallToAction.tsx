@@ -1,5 +1,6 @@
 import React from 'react';
 import FlameCanvas from './FlameCanvas';
+import Reveal from './Reveal';
 import { Instagram } from 'lucide-react';
 
 // Iconos inline con estilo de trazo para que coincidan con Lucide
@@ -73,18 +74,20 @@ const CallToAction: React.FC = () => {
                 </div>
               </div>
               
-              <div className="text-purple-400 text-sm md:text-base text-center justify-self-center">
+              <Reveal effect="fade" delay={1} className="text-purple-400 text-sm md:text-base text-center justify-self-center">
                 <p>© 2025 Mi Gusto. Todos los derechos reservados.</p>
                 <p className="text-xs mt-1">Doritos es una marca registrada de PepsiCo.</p>
-              </div>
+              </Reveal>
 
               {/* Redes en el lado derecho del footer */}
               <div className="justify-self-end text-right">
-                <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2 justify-end md:justify-end">
-                  <Instagram className="w-4 h-4" style={{ stroke: 'url(#flame-stroke)', fill: 'none', strokeWidth: 2 }} />
-                  Síguenos en Redes
-                </h4>
-                <div className="flex gap-3 md:gap-4 justify-end">
+                <Reveal effect="slide-up" className="text-right">
+                  <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2 justify-end md:justify-end">
+                    <Instagram className="w-4 h-4" style={{ stroke: 'url(#flame-stroke)', fill: 'none', strokeWidth: 2 }} />
+                    Síguenos en Redes
+                  </h4>
+                </Reveal>
+                <Reveal effect="slide-up" className="flex gap-3 md:gap-4 justify-end">
                   {[
                     { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/migustoar/?hl=es' },
                     { icon: XTwitterIcon, label: 'X (Twitter)', href: 'https://x.com/migustoar?lang=es' },
@@ -101,7 +104,7 @@ const CallToAction: React.FC = () => {
                       <social.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
                     </a>
                   ))}
-                </div>
+                </Reveal>
               </div>
             </div>
           </div>

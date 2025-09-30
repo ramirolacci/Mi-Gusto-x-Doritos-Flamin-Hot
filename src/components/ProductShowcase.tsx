@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import Reveal from './Reveal';
 import SteamOverlay from './SteamOverlay';
 import FlameCanvas from './FlameCanvas';
 import Confetti from './Confetti';
@@ -16,6 +17,7 @@ const ProductShowcase: React.FC = () => {
   });
   const [scrollProgress, setScrollProgress] = useState(0);
   const [postArrivalProgress, setPostArrivalProgress] = useState(0); // progreso extra luego de que la empanada llega al contador
+  const [edgeProgress, setEdgeProgress] = useState(0); // progreso para imágenes a los bordes tras el logo
   // Notificaciones eliminadas por solicitud
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -92,6 +94,18 @@ const ProductShowcase: React.FC = () => {
       const overshoot = (end - rect.top) / (vh * 0.35); // 0→1 en ~35% del viewport adicional
       const overshootClamped = Math.max(0, Math.min(1, overshoot));
       setPostArrivalProgress(overshootClamped);
+
+      // Progreso para las imágenes a los bordes tras el LogoEmp
+      const logo = logoRef.current;
+      if (logo) {
+        const logoRect = logo.getBoundingClientRect();
+        const startLogo = vh;        // top del bloque en la parte baja
+        const endLogo = vh * 0.45;   // hasta que llega cerca de la mitad superior
+        const rawLogo = 1 - (logoRect.top - endLogo) / (startLogo - endLogo);
+        // Gate: que empiece a 0 y recién se active cerca del LogoEmp
+        const gated = Math.max(0, Math.min(1, (rawLogo - 0.8) / 0.2)); // activa ~80%→100%
+        setEdgeProgress(gated);
+      }
     };
     const onScroll = () => requestAnimationFrame(update);
     update();
@@ -105,6 +119,7 @@ const ProductShowcase: React.FC = () => {
 
   return (
     <section ref={sectionRef} className="py-24 md:py-28 relative overflow-hidden">
+      {(() => { /* easing precomputado para transiciones suaves en bordes */ return null; })()}
       {/* Background más intenso */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/70 to-black" />
       <div className="absolute inset-0 gradient-bg opacity-80" />
@@ -135,13 +150,50 @@ const ProductShowcase: React.FC = () => {
                 duration={2500} 
               />
             </div>
+            {/* Imágenes a bordes de pantalla que aparecen tras el logo */}
+            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/2 w-screen -z-[1]">
+              {/* Izquierda: TubitoDinamita2 */}
+              <Reveal effect="fade" className="hidden md:block absolute left-0 -translate-y-1/2">
+                <img
+                  src="/TubitoDinamita2.png"
+                  alt="Tubito Dinamita (izquierda)"
+                  className="w-40 md:w-48 lg:w-56 will-change-transform"
+                  style={{
+                    filter: 'drop-shadow(0 10px 20px rgba(255,0,64,0.25))',
+                    transition: 'transform 600ms cubic-bezier(.22,.61,.36,1), opacity 600ms ease',
+                    opacity: 0.1 + edgeProgress * 0.9,
+                    transform: `translateX(${(-80 + edgeProgress * 68)}%)`
+                  }}
+                  loading="lazy"
+                />
+              </Reveal>
+              {/* Derecha: TubitoDinamita */}
+              <Reveal effect="fade" delay={1} className="hidden md:block absolute right-0 -translate-y-1/2">
+                <img
+                  src="/TubitoDinamita.png"
+                  alt="Tubito Dinamita (derecha)"
+                  className="w-44 md:w-52 lg:w-60 will-change-transform"
+                  style={{
+                    filter: 'drop-shadow(0 12px 24px rgba(255,0,64,0.3))',
+                    transition: 'transform 600ms cubic-bezier(.22,.61,.36,1), opacity 600ms ease',
+                    opacity: 0.1 + edgeProgress * 0.9,
+                    transform: `translateX(${(80 - edgeProgress * 68)}%)`
+                  }}
+                  loading="lazy"
+                />
+              </Reveal>
+            </div>
           </div>
-          <h2 className="text-5xl md:text-6xl font-black flame-text font-['Bebas_Neue'] mb-6">
-            EMPANADA REVOLUCIONARIA
-          </h2>
-          <p className="text-purple-200 text-xl max-w-3xl mx-auto">
-            Cada mordida es una explosión de sabor que combina la tradición argentina con la intensidad única de Doritos Flamin' Hot
-          </p>
+          <Reveal effect="slide-up">
+            <h2 className="text-5xl md:text-6xl font-black flame-text font-['Bebas_Neue'] mb-6">
+              EMPANADA REVOLUCIONARIA
+            </h2>
+          </Reveal>
+          <Reveal effect="fade" delay={1}>
+            <p className="text-purple-200 text-xl max-w-3xl mx-auto">
+              Cada mordida es una explosión de sabor que combina la tradición argentina con la intensidad única de Doritos Flamin' Hot
+            </p>
+          </Reveal>
         </div>
 
         {/* Product Grid */}
@@ -195,7 +247,7 @@ const ProductShowcase: React.FC = () => {
 
           {/* Detalles del producto a la derecha del 3D */}
           <div className="features-epic space-y-6 lg:mt-0 lg:pl-12 lg:border-l lg:border-fuchsia-500/20 lg:self-stretch lg:flex lg:flex-col lg:justify-center">
-            {[
+            {[ 
               {
                 title: "Masa Artesanal",
                 description: "Elaborada con la receta tradicional de Mi Gusto, perfecta para contener toda la intensidad",
@@ -219,8 +271,9 @@ const ProductShowcase: React.FC = () => {
                 )
               }
             ].map((item, index) => (
-              <div key={index} className="feature-card-pro">
-                <div className="flex items-start gap-4">
+              <Reveal key={index} effect="scale" delay={(index % 3) as 0 | 1 | 2}>
+                <div className="feature-card-pro">
+                  <div className="flex items-start gap-4">
                   <div className="feature-icon-pro">
                     {typeof item.icon === 'string' ? (
                       <span className="text-3xl md:text-4xl">{item.icon}</span>
@@ -233,7 +286,8 @@ const ProductShowcase: React.FC = () => {
                     <p className="text-purple-200 leading-relaxed text-sm md:text-base max-w-sm">{item.description}</p>
                   </div>
                 </div>
-              </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -312,8 +366,9 @@ const ProductShowcase: React.FC = () => {
               loading="lazy"
             />
             {/* Countdown movido aquí (mismo tamaño que el original) */}
-            <div className="relative z-20 bg-gradient-to-br from-purple-900/40 to-fuchsia-900/40 rounded-3xl p-10 lg:p-14 border border-fuchsia-500/20 mb-16 inline-block">
-              <div className="grid grid-cols-4 gap-8">
+            <Reveal effect="slide-up">
+              <div className="relative z-20 bg-gradient-to-br from-purple-900/40 to-fuchsia-900/40 rounded-3xl p-10 lg:p-14 border border-fuchsia-500/20 mb-16 inline-block">
+                <div className="grid grid-cols-4 gap-8">
                 {[
                   { value: timeLeft.days, label: 'DÍAS' },
                   { value: timeLeft.hours, label: 'HORAS' },
@@ -371,7 +426,8 @@ const ProductShowcase: React.FC = () => {
                   )}
                 </div>
               </div>
-            </div>
+              </div>
+            </Reveal>
           </div>
         </div>
 
