@@ -162,7 +162,7 @@ const ProductShowcase: React.FC = () => {
                     filter: 'drop-shadow(0 10px 20px rgba(255,0,64,0.25))',
                     transition: 'transform 600ms cubic-bezier(.22,.61,.36,1), opacity 600ms ease',
                     opacity: 0.1 + edgeProgress * 0.9,
-                    transform: `translateX(${(-80 + edgeProgress * 58)}%)`
+                    transform: `translateX(${(-80 + edgeProgress * 56)}%)`
                   }}
                   loading="lazy"
                 />
@@ -177,7 +177,7 @@ const ProductShowcase: React.FC = () => {
                     filter: 'drop-shadow(0 12px 24px rgba(255,0,64,0.3))',
                     transition: 'transform 600ms cubic-bezier(.22,.61,.36,1), opacity 600ms ease',
                     opacity: 0.1 + edgeProgress * 0.9,
-                    transform: `translateX(${(80 - edgeProgress * 58)}%)`
+                    transform: `translateX(${(80 - edgeProgress * 56)}%)`
                   }}
                   loading="lazy"
                 />
