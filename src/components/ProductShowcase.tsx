@@ -248,15 +248,7 @@ const ProductShowcase: React.FC = () => {
                 </div>
               </div>
             </div>
-            {/* Marquee: Pican, pero rico! */}
-            <div className="hidden">
-              <div className="marquee bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-y border-fuchsia-500/30 py-3">
-                <div className="marquee-track text-black font-bold tracking-wide">
-                  <span className="text-2xl md:text-3xl font-['Bebas_Neue'] px-6 whitespace-nowrap">Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!</span>
-                  <span className="text-2xl md:text-3xl font-['Bebas_Neue'] px-6 whitespace-nowrap">Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!  a0 a0 a0 a0 Pican, pero rico!</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
 
           {/* Detalles del producto a la derecha del 3D */}
@@ -345,6 +337,113 @@ const ProductShowcase: React.FC = () => {
                 />
               );
             })()}
+
+            {/* Tubito Dinamita derecho: detrás del Flamin Hot */}
+            {(() => {
+              const reveal = Math.max(0, Math.min(1, (postArrivalProgress - 0.05) / 0.95));
+              const flaminX = 52 - 40 * scrollProgress; // referencia lado derecho
+              const tubitosXRight = flaminX + (6 * reveal);
+              const tubitosYRight = -50 - 2 * reveal;
+              const scaleRight = 0.82 + 0.16 * reveal;
+              return (
+                <img
+                  src="/TubitoDinamita2.png"
+                  alt="Tubito Dinamita"
+                  className="pointer-events-none hidden md:block absolute -right-6 md:-right-16 top-1/2 w-36 md:w-44 lg:w-56 will-change-transform z-10"
+                  style={{
+                    transform: `translate(-0%, ${tubitosYRight}%) translateX(${tubitosXRight}vw) rotate(10deg) scale(${scaleRight})`,
+                    opacity: Math.max(0, reveal),
+                    filter: 'drop-shadow(0 10px 20px rgba(255,0,64,0.25))'
+                  }}
+                  loading="lazy"
+                />
+              );
+            })()}
+
+            {/* Imagen derecha - Flamin Hot */}
+            <img
+              src="/FlaminHot.png"
+              alt="Doritos Flamin' Hot"
+              className="pointer-events-none hidden md:block absolute -right-6 md:-right-16 top-1/2 w-72 md:w-96 lg:w-[28rem] drop-shadow-2xl z-20 will-change-transform"
+              style={{
+                transform: `translateY(-50%) translateX(${(52 - 40 * scrollProgress)}vw) scale(${0.9 + 0.25 * scrollProgress})`,
+                opacity: Math.min(1, Math.max(0, scrollProgress))
+              }}
+              loading="lazy"
+            />
+
+            {/* Countdown */}
+            <Reveal effect="slide-up">
+              <div className="relative z-40 mt-24 md:mt-28 bg-gradient-to-br from-purple-900/40 to-fuchsia-900/40 rounded-3xl p-10 lg:p-14 border border-fuchsia-500/20 mb-16 inline-block">
+                <div className="grid grid-cols-4 gap-8">
+                  {[
+                    { value: timeLeft.days, label: 'DÍAS' },
+                    { value: timeLeft.hours, label: 'HORAS' },
+                    { value: timeLeft.minutes, label: 'MINUTOS' },
+                    { value: timeLeft.seconds, label: 'SEGUNDOS' }
+                  ].map((item, index) => (
+                    <div key={index} className="text-center">
+                      <div className="bg-gradient-to-br from-fuchsia-600 to-purple-600 rounded-2xl p-8 mb-4 pulse-glow">
+                        <div className="text-5xl lg:text-6xl font-black text-white font-['Bebas_Neue']">
+                          {item.value.toString().padStart(2, '0')}
+                        </div>
+                      </div>
+                      <div className="text-fuchsia-300 font-semibold text-base tracking-wider">
+                        {item.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Newsletter */}
+                <div className="mt-12 md:mt-14 max-w-xl mx-auto">
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="email"
+                      inputMode="email"
+                      value={newsletterEmail}
+                      onChange={(e) => {
+                        setNewsletterEmail(e.target.value);
+                        if (newsletterStatus !== 'idle') setNewsletterStatus('idle');
+                      }}
+                      placeholder="example@gmail.com"
+                      className="flex-1 px-4 py-3 bg-black/50 border border-purple-600/60 rounded-xl text-white placeholder-purple-300 focus:border-fuchsia-500 focus:outline-none"
+                    />
+                    <button
+                      onClick={async () => {
+                        const email = newsletterEmail.trim();
+                        const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                        if (!isEmailValid) {
+                          setNewsletterStatus('error');
+                          return;
+                        }
+                        setNewsletterStatus('success');
+                      }}
+                      className="px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-xl text-white font-semibold shadow-lg hover:from-fuchsia-500 hover:to-purple-500 transition-colors"
+                    >
+                      Avisame
+                    </button>
+                  </div>
+                  <div className="mt-2 min-h-[1.25rem]">
+                    {newsletterStatus === 'error' && (
+                      <p className="text-sm text-red-400">Por favor ingresa un correo válido.</p>
+                    )}
+                    {newsletterStatus === 'success' && (
+                      <p className="text-sm text-fuchsia-300">¡Listo! Te avisaremos con las últimas novedades.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+
+        {/* Marquee: Pican, pero rico! — Debajo del contador (fuera del header épico) */}
+        <div className="relative z-10 mt-6">
+          <div className="marquee bg-gradient-to-r from-fuchsia-700/80 via-purple-700/80 to-fuchsia-700/80 border-y-2 border-fuchsia-500/50 py-6 md:py-7">
+            <div className="marquee-track text-black font-extrabold tracking-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]">
+              <span className="text-5xl md:text-7xl lg:text-8xl font-['Bebas_Neue'] uppercase px-10 whitespace-nowrap">Pican, pero rico! — Pican, pero rico! — Pican, pero rico! — Pican, pero rico!</span>
+              <span className="text-5xl md:text-7xl lg:text-8xl font-['Bebas_Neue'] uppercase px-10 whitespace-nowrap">Pican, pero rico! — Pican, pero rico! — Pican, pero rico! — Pican, pero rico!</span>
+            </div>
           </div>
         </div>
 
