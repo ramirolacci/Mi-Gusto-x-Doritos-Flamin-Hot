@@ -258,17 +258,28 @@ const Hero: React.FC = () => {
             />
           </div>
 
-          {/* CTA Button */}
-          <div className="flex justify-center items-center">
-            <button className="group px-10 py-4 md:px-12 bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full text-white font-bold text-lg transition-all duration-300 hover:from-fuchsia-500 hover:to-purple-500 transform hover:scale-105">
-              <span className="flex items-center gap-2">
-                <img 
-                  src="/Tubito.png" 
-                  alt="Tubito" 
-                  className="w-5 h-5 group-hover:animate-bounce transition-transform duration-300"
-                  style={{ filter: 'brightness(1.2) contrast(1.1)' }}
-                />
-                Descubrir Ahora
+          {/* CTA Button - Reemplazado por imagen Tubito */}
+          <div className="relative flex flex-col items-center gap-4">
+            <button className="group relative transition-all duration-300 transform hover:scale-110 hover:rotate-3">
+              <img 
+                src="/Tubito.png" 
+                alt="Descubrir Ahora" 
+                className="w-40 h-40 md:w-52 md:h-52 transition-all duration-300 drop-shadow-2xl"
+                style={{ 
+                  filter: 'brightness(1.1) contrast(1.2) drop-shadow(0 8px 16px rgba(255,0,64,0.4))',
+                  cursor: 'pointer'
+                }}
+                title="Descubrir Ahora"
+              />
+              <span className="absolute top-[5.25rem] left-1/2 text-white font-bold text-sm md:text-base tracking-wide whitespace-nowrap pointer-events-none transition-colors duration-200 group-hover:text-black font-['Montserrat']"
+                style={{
+                  textShadow: '0 1px 4px rgba(0,0,0,0.6), 0 0 12px rgba(255,0,64,0.35)',
+                  transform: 'translateX(-52%) rotate(-25deg)',
+                  lineHeight: '3.5rem',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Descubrilo Ahora
               </span>
             </button>
           </div>
