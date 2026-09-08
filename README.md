@@ -5,7 +5,7 @@
   <img src="public/FlaminHotLogo.png" alt="Flamin Hot Logo" height="75" />
   <br /><br />
 
-  # 🌶️ Mi Gusto x Doritos Flamin' Hot — CRUNCHY 🔥
+  # 🌶️🥟 Mi Gusto x Doritos Flamin' Hot — CRUNCHY 🔥
 
   <p align="center">
     <b>Micrositio promocional e interactivo de alto impacto visual diseñado para el lanzamiento oficial de la empanada CRUNCHY.</b>
@@ -20,13 +20,13 @@
   </p>
 
   <p align="center">
-    <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 18" />
-    <img src="https://img.shields.io/badge/TypeScript-5.5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-    <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
-    <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
-    <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase" />
-    <img src="https://img.shields.io/badge/3D-Google_Model_Viewer-FF4500?style=flat-square" alt="3D Model Viewer" />
-    <img src="https://img.shields.io/badge/Analytics-Google_Analytics_4-E37400?style=flat-square&logo=googleanalytics&logoColor=white" alt="GA4" />
+    ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+    ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+    ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+    ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+    ![Supabase](https://img.shields.io/badge/Supabase-%233ECF8E.svg?style=for-the-badge&logo=supabase&logoColor=white)
+    <img src="https://img.shields.io/badge/3D-Google_Model_Viewer-FF4500?style=for-the-badge" alt="3D Model Viewer" />
+    <img src="https://img.shields.io/badge/Analytics-Google_Analytics_4-E37400?style=for-the-badge&logo=googleanalytics&logoColor=white" alt="GA4" />
   </p>
 
   ---
